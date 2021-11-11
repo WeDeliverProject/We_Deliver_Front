@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const item = [
-  { id: 1, name: "한식" },
-  { id: 2, name: "분식" },
-  { id: 3, name: "중식" },
-  { id: 4, name: "야식" },
-  { id: 5, name: "일식" },
+  { id: 1, name: "한식", url: `/menu/Korean` },
+  { id: 2, name: "분식", url: `/menu/Snack` },
+  { id: 3, name: "중식", url: `/menu/Chinese` },
+  { id: 4, name: "야식", url: `/menu/Midnight` },
+  { id: 5, name: "일식", url: `/menu/Japanese` },
 ];
 
 const Wrapper = styled.div`
@@ -29,11 +30,18 @@ const Text = styled.button`
   margin: 0 30px 0px 30px;
 `;
 
+const LinkTo = styled(Link)`
+  text-decoration: "none";
+  color: black;
+`;
+
 const Category = () => {
   return (
     <Wrapper>
       {item.map((item) => (
-        <Text>{item.name}</Text>
+        <Link to={item.url}>
+          <Text>{item.name}</Text>
+        </Link>
       ))}
     </Wrapper>
   );

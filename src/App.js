@@ -1,25 +1,21 @@
 import React from "react";
-import Category from "./common/Category";
 import Header from "./common/Header";
-import Location from "./page/main/Location";
-import Main from "./page/main/Main";
 
-import styled from "styled-components";
+import Layout1 from "./Layout1";
+import Layout2 from "./Layout2";
+import Restaurant from "./page/detail/Resturant";
 
-const Box = styled.div`
-  width: 1200px;
-  margin: 0 auto;
-`;
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
     <>
       <Header />
-      <Location />
-      <Category />
-      <Box>
-        <Main />
-      </Box>
+      <Routes>
+        <Route path="/main" element={<Layout1 />} />
+        <Route path="/menu/Korean" element={<Layout2 />} />
+        <Route path="/menu/Korean/StoreName" element={<Restaurant />} />
+      </Routes>
     </>
   );
 };
