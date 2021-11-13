@@ -25,7 +25,7 @@ const Black = styled.div`
 const InputBox = styled.div`
   display: flex;
   width: 800px;
-  height: 30px;
+  height: 45px;
   background-color: white;
   border-radius: 30px;
   padding: 10px 20px 10px 20px;

@@ -9,7 +9,7 @@ const Title = styled.div`
   font-weight: bold;
   font-size: 20px;
   line-height: 23px;
-  padding: 35px 0 35px 0;
+  padding: 100px 0 35px 0;
 `;
 
 const Img = styled.img`
