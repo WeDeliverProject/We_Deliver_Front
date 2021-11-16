@@ -3,17 +3,17 @@ import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import styled from "styled-components";
 import Menu from "./Menu";
-import Review from "./Review";
+import Review from "./review/Review";
 import Info from "./Info";
 
 const Wrapper = styled.div`
-  width: 800px;
+  width: 900px;
   padding-left: 2px;
   margin-top: 3px;
 `;
 
 const Title = styled.div`
-  width: 234px;
+  width: 267px;
   text-align: center;
   font-family: Roboto;
   font-weight: bold;

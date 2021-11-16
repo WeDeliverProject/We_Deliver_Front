@@ -5,7 +5,7 @@ import TabBar from "./TabBar";
 import Logo from "../../img/image 80.png";
 
 const Title = styled.div`
-  width: 800px;
+  width: 900px;
   height: 220px;
   border: 1px solid #c4c4c4;
   display: flex;
@@ -16,7 +16,7 @@ const Img = styled.img`
   width: 200px;
   height: 200px;
   padding: 10px;
-  margin-left: 30px;
+  margin-left: 100px;
 `;
 
 const Name = styled.div`
