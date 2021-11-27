@@ -4,6 +4,10 @@ import MenuBar from "./MenuBar";
 import TabBar from "./TabBar";
 import Logo from "../../img/image 80.png";
 
+const Wrapper = styled.div`
+  display: flex;
+`
+
 const Title = styled.div`
   width: 900px;
   height: 220px;
@@ -40,20 +44,22 @@ const Info = styled.div`
 
 const Main = () => {
   return (
-    <>
+    <Wrapper>
+      <div>
+        <Title>
+          <Img src={Logo} />
+          <div>
+            <Name>떡볶이 참 잘하는 집</Name>
+            <Star>별점</Star>
+            <Info>최소주문금액</Info>
+            <Info>배달비</Info>
+            <Info>결제 </Info>
+          </div>
+        </Title>
+        <TabBar />
+      </div>
       <MenuBar />
-      <Title>
-        <Img src={Logo} />
-        <div>
-          <Name>떡볶이 참 잘하는 집</Name>
-          <Star>별점</Star>
-          <Info>최소주문금액</Info>
-          <Info>배달비</Info>
-          <Info>결제 </Info>
-        </div>
-      </Title>
-      <TabBar />
-    </>
+    </Wrapper>
   );
 };
 

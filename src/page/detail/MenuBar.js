@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Box = styled.div`
-  position: ${(props) => (props.scrolled === true ? "fixed" : "absolute")};
-  top: ${(props) => (props.scrolled === true ? "10px" : "auto")};
+  position: ${(props) => (props.scrolled === true ? "fixed" : "static")};
+  top: ${(props) => (props.scrolled === true ? "10px" : "100px")};
   width: 200px;
-  left: 55%;
-  margin-left: 240px;
+  margin-left: ${(props) => (props.scrolled === true ? "940px" : "40px")};
 `;
 
 const Basket = styled.div`
