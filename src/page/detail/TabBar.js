@@ -4,7 +4,7 @@ import classnames from "classnames";
 import styled from "styled-components";
 import Menu from "./Menu";
 import Review from "./review/Review";
-import Info from "./Info";
+import Info from "./info/Info";
 
 const Wrapper = styled.div`
   width: 900px;
