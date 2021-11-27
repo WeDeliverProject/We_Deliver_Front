@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 
   div {
     color: #FF5959;
@@ -61,7 +62,6 @@ const RegisterBtn = styled.button`
 
 const LabelText = styled.div`
   display: inline-block;
-  margin-right: 30px;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -100,7 +100,7 @@ const Register = () => {
     <Wrapper>
       <Title>
         <img width="120px" src={Logo} alt="logo"></img>
-        <div>배달만해</div>
+        <div>회원가입</div>
       </Title>
       <Box>
         <Form>
