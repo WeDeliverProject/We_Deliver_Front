@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import StoreImg from "../../img/image 80.png";
-
 const Box = styled.div`
   width: 250px;
   height: 335px;
@@ -22,11 +20,11 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Store = () => {
+const Store = ({ data }) => {
   return (
     <Box>
       <Link to="/menu/Korean/StoreName">
-        <Img src={StoreImg} alt="store" />
+        <Img src={data.img} alt={data.name} />
       </Link>
       <Wrapper>
         <p>18,000원 이상 주문</p>

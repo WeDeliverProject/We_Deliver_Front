@@ -15,7 +15,7 @@ const Title = styled.div`
   border-bottom: 1px solid #c4c4c4;
   padding: 10px;
   margin-top: 15px;
-  margin-bottom : 10px;
+  margin-bottom: 10px;
   font-weight: bold;
   width: 870px;
   align-items: center;
@@ -26,21 +26,20 @@ const Title = styled.div`
 
   img {
     width: 17px;
-    height : 17px;
+    height: 17px;
   }
-`
+`;
 
 const Content = styled.div`
   padding: 0 20px;
-`
-
+`;
 
 const Info = () => {
   return (
     <Wrapper>
       <div>
         <Title>
-          <img src={Notification}/>
+          <img src={Notification} alt="notification" />
           <div>사장님 알림</div>
         </Title>
         <Content>
@@ -60,7 +59,7 @@ const Info = () => {
       </div>
       <div>
         <Title>
-          <img src={Home}/>
+          <img src={Home} alt="home" />
           <div>업체 정보</div>
         </Title>
         <Content>
@@ -80,7 +79,7 @@ const Info = () => {
       </div>
       <div>
         <Title>
-          <img src={Card}/>
+          <img src={Card} alt="card" />
           <div>결제 정보</div>
         </Title>
         <Content>

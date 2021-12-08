@@ -7,9 +7,9 @@ import Tom from "../../img/TomN.jpg";
 const Title = styled.div`
   font-family: Roboto;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 23px;
-  padding: 100px 0 35px 0;
+  padding: 200px 0 80px 0;
 `;
 
 const Img = styled.img`
@@ -37,24 +37,24 @@ const StoreDetail = () => {
   );
 };
 
-const Sale = () => {
+const Order = () => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-  const [status, setStatus] = useState(null);
+  //const [status, setStatus] = useState(null);
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      //setStatus("Geolocation is not supported by your browser");
     } else {
-      setStatus("Locating...");
+      //setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStatus(null);
+          //setStatus(null);
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
         () => {
-          setStatus("Unable to retrieve your location");
+          //setStatus("Unable to retrieve your location");
         }
       );
     }
@@ -78,4 +78,4 @@ const Sale = () => {
   );
 };
 
-export default Sale;
+export default Order;

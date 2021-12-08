@@ -5,8 +5,6 @@ import Back from "./img/tteok.png";
 import Category from "./common/Category";
 import Korean from "./page/category/Korean";
 
-import { Routes, Route } from "react-router-dom";
-
 const Box = styled.div`
   width: 1200px;
   margin: 0 auto;
