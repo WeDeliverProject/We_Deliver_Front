@@ -1,5 +1,4 @@
 import * as reducer from "../../store/reducer/member";
-import { useActions, useShallowEqualSelectorToJS } from "./components";
 
 const useMember = () => {
   return {

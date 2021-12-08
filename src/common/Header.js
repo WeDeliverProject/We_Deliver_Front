@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -14,7 +14,7 @@ const HeaderBar = styled.div`
 
 const Title = styled.div`
   display: flex;
-`
+`;
 
 const SignIn = styled.button`
   text-align: center;
@@ -23,7 +23,7 @@ const SignIn = styled.button`
   margin-top: 30px;
   background-color: transparent;
   border: 0;
-`
+`;
 
 const Register = styled.button`
   font-weight: bold;
@@ -31,7 +31,7 @@ const Register = styled.button`
   margin-right: 30px;
   background-color: transparent;
   border: 0;
-`
+`;
 
 const LogoText = styled.div`
   color: white;
@@ -55,8 +55,7 @@ const LinkTo = styled(Link)`
 `;
 
 const Header = () => {
-
-  const [user, setUser] = useState(false)
+  //const [user, setUser] = useState(false)
   return (
     <HeaderBar>
       <Title>
@@ -66,16 +65,12 @@ const Header = () => {
         </LinkTo>
       </Title>
       <Title>
-        {user === false &&
-          <>
-            <LinkTo to="login">
-              <SignIn>로그인</SignIn>
-            </LinkTo>
-            <LinkTo to="register">
-              <Register>회원가입</Register>
-            </LinkTo>
-          </>
-        }
+        <LinkTo to="login">
+          <SignIn>로그인</SignIn>
+        </LinkTo>
+        <LinkTo to="register">
+          <Register>회원가입</Register>
+        </LinkTo>
       </Title>
     </HeaderBar>
   );

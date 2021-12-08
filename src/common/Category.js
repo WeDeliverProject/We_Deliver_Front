@@ -30,16 +30,11 @@ const Text = styled.button`
   margin: 0 30px 0px 30px;
 `;
 
-const LinkTo = styled(Link)`
-  text-decoration: "none";
-  color: black;
-`;
-
 const Category = () => {
   return (
     <Wrapper>
       {item.map((item) => (
-        <Link to={item.url}>
+        <Link key={item.id} to={item.url}>
           <Text>{item.name}</Text>
         </Link>
       ))}

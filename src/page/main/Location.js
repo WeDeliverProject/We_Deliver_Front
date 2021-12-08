@@ -22,22 +22,25 @@ const Black = styled.div`
   top: 0px;
 `;
 
+const Box = styled.div`
+  width: 140px;
+  height: 100%;
+`;
+
 const InputBox = styled.div`
   display: flex;
-  width: 800px;
-  height: 45px;
+  width: 900px;
+  height: 65px;
   background-color: white;
   border-radius: 30px;
   padding: 10px 20px 10px 20px;
-
   margin: 0 auto;
   margin-top: ${(props) => props.marginTop};
 `;
 
 const CurrentL = styled.div`
   border: none;
-  border-right: 1px solid #cfcfcf;
-  padding: 0px 15px 0px 10px;
+  padding: 10px 15px 0px 10px;
 
   font-family: Roboto;
   font-weight: bold;
@@ -47,7 +50,8 @@ const CurrentL = styled.div`
 const Input = styled.input`
   margin-left: 40px;
   border: none;
-  width: 590px;
+  border-left: 1px solid #cfcfcf;
+  width: 640px;
   :focus {
     outline: none;
   }
@@ -79,9 +83,9 @@ const Location = () => {
   const postCodeStyle = {
     display: "block",
     position: "absolute",
-    width: "650px",
-    bottom: "160px",
-    left: "500px",
+    width: "600px",
+    bottom: "57px",
+    left: "515px",
   };
 
   const handleComplete = (data) => {
@@ -109,8 +113,13 @@ const Location = () => {
       <Img height={h} src={Background} alt="background" />
       <Black height={h}>
         <div>
-          <InputBox marginTop="100px">
-            <img src={Placeholder} alt="placeholder" />
+          <InputBox marginTop="150px">
+            <img
+              src={Placeholder}
+              width="40px"
+              height="40px"
+              alt="placeholder"
+            />
             <CurrentL>현재 위치</CurrentL>
             <Input
               onClick={openPostCode}
@@ -132,8 +141,10 @@ const Location = () => {
               </>
             ) : null}
           </InputBox>
-          <InputBox marginTop="30px">
-            <CurrentL>상세 주소</CurrentL>
+          <InputBox marginTop="50px">
+            <Box>
+              <CurrentL>상세 주소</CurrentL>
+            </Box>
             <Input />
           </InputBox>
         </div>

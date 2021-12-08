@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Logo from "../img/logo.png";
-import { useMember } from "../components";
+import Logo from "../../img/logo.png";
+import { useMember } from "../../components";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Col } from "reactstrap";
+import { Form, FormGroup, Col } from "reactstrap";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -74,11 +74,6 @@ const LabelText = styled.div`
   text-align: center;
 `;
 
-const Description = styled.div`
-  font-size: 15px;
-  font-weight: bold;
-`;
-
 const FormDiv = styled(FormGroup)`
   margin-bottom: 10px;
 `;
@@ -141,7 +136,12 @@ const Register = () => {
           <FormDiv row>
             <LabelText>아이디</LabelText>
             <Col sm={2}>
-              <Input onChange={handleChange} placeholder="아이디" />
+              <Input
+                onChange={handleChange}
+                name="id"
+                value={data.id}
+                placeholder="아이디"
+              />
             </Col>
           </FormDiv>
           <FormDiv row>
@@ -149,6 +149,8 @@ const Register = () => {
             <Col sm={2}>
               <Input
                 onChange={handleChange}
+                name="password"
+                value={data.password}
                 type="password"
                 placeholder="비밀번호"
               />
@@ -159,6 +161,8 @@ const Register = () => {
             <Col sm={2}>
               <Input
                 onChange={handleChange}
+                name="passwordC"
+                value={data.passwordC}
                 type="password"
                 placeholder="비밀번호 확인"
               />
@@ -167,7 +171,12 @@ const Register = () => {
           <FormDiv row>
             <LabelText>닉네임</LabelText>
             <Col sm={2}>
-              <Input onChange={handleChange} placeholder="닉네임" />
+              <Input
+                onChange={handleChange}
+                name="nickname"
+                value={data.nickname}
+                placeholder="닉네임"
+              />
             </Col>
           </FormDiv>
         </Form>

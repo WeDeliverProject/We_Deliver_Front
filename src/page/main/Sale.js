@@ -12,9 +12,9 @@ import Sale4 from "../../img/Sale4.jpg";
 const Title = styled.div`
   font-family: Roboto;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 23px;
-  padding: 35px 0 35px 0;
+  padding: 200px 0 80px 0;
 `;
 
 const Img = styled.img`
