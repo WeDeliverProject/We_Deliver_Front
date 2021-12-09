@@ -1,6 +1,6 @@
 const urls = {
   member: "/api/v1/members",
-  restaurant: "/api/vi/restaurants",
+  restaurant: "/api/v1/restaurants",
 };
 
 export default urls;

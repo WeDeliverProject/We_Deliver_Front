@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../img/logo.png";
 import styled from "styled-components";
 import { useMember } from "../../components";
-import axios from "axios";
+import { httpClient } from "../../remote";
 import { Link, useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div``;
@@ -106,7 +106,7 @@ const Login = () => {
     try {
       const response = await loginApi(body);
       const accessToken = response.data.accessToken;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      httpClient.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
       navigate("/main");
     } catch (e) {
       alert(e);
@@ -132,6 +132,7 @@ const Login = () => {
           <Input
             onChange={handleChange}
             name="password"
+            type="password"
             value={data.password}
             placeholder="비밀번호"
           />
