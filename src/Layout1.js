@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Category from "./common/Category";
 import Location from "./page/main/Location";
 import Main from "./page/main/Main";
 
 import styled from "styled-components";
+import Footer from "./common/Footer";
 
 const Box = styled.div`
   width: 1200px;
@@ -11,13 +12,25 @@ const Box = styled.div`
 `;
 
 const Layout1 = () => {
+  const [next, setNext] = useState(false);
+
+  const nextHandler = () => {
+    setNext(true);
+  };
   return (
     <>
-      <Location />
-      <Category />
-      <Box>
-        <Main />
-      </Box>
+      <Location next={next} handler={nextHandler} />
+      {next ? (
+        <>
+          <Category />
+          <Box>
+            <Main />
+          </Box>
+          <Footer />
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

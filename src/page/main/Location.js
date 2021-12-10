@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DaumPostcode from "react-daum-postcode";
 
+import "../../AllCss.css";
 import Background from "../../img/location_background.jpg";
 import Placeholder from "../../img/placeholder.png";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   position: relative;
+  overflow: hidden;
 `;
 
 const Img = styled.img`
@@ -27,21 +30,26 @@ const Box = styled.div`
   height: 100%;
 `;
 
+const MiddleBox = styled.div`
+  width: 800px;
+  margin: 0 auto;
+`;
+
 const InputBox = styled.div`
   display: flex;
-  width: 900px;
+  width: 800px;
   height: 65px;
   background-color: white;
   border-radius: 30px;
   padding: 10px 20px 10px 20px;
-  margin: 0 auto;
   margin-top: ${(props) => props.marginTop};
 `;
 
 const CurrentL = styled.div`
   border: none;
-  padding: 10px 15px 0px 10px;
+  padding: 10px 0px 0px 10px;
 
+  width: 100px;
   font-family: Roboto;
   font-weight: bold;
   font-size: 18px;
@@ -63,7 +71,9 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const Location = () => {
+const Location = ({ next, handler }) => {
+  const h = window.innerHeight;
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAddress, setIsAddress] = useState("");
   const [isZoneCode, setIsZoneCode] = useState();
@@ -106,13 +116,20 @@ const Location = () => {
     setIsAddress(fullAddress);
   };
 
-  const h = window.innerHeight;
+  const checkInput = () => {
+    if (isAddress === "") {
+      alert("주소를 입력하여 주세요.");
+    } else {
+      handler();
+      window.scrollTo(0, h);
+    }
+  };
 
   return (
     <Wrapper>
       <Img height={h} src={Background} alt="background" />
       <Black height={h}>
-        <div>
+        <MiddleBox>
           <InputBox marginTop="150px">
             <img
               src={Placeholder}
@@ -147,7 +164,10 @@ const Location = () => {
             </Box>
             <Input />
           </InputBox>
-        </div>
+          <button className="btn hover1" onClick={checkInput}>
+            WE DELIVER`
+          </button>
+        </MiddleBox>
       </Black>
     </Wrapper>
   );
