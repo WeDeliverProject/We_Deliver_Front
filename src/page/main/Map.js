@@ -17,7 +17,7 @@ const Map = ({ Lat, Lng }) => {
     <div
       id="myMap"
       style={{
-        marginLeft: "50px",
+        marginRight: "50px",
         width: "500px",
         height: "500px",
       }}

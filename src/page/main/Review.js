@@ -6,9 +6,9 @@ import ReviewImg from "../../img/food.jpg";
 const Title = styled.div`
   font-family: Roboto;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 23px;
-  padding: 200px 0 80px 0;
+  padding: 150px 0 50px 0;
 `;
 
 const Box = styled.div`

@@ -17,6 +17,7 @@ const Korean = () => {
       }
     };
     fetch();
+    console.log(restaurantList);
   }, [listAllRestaurants, setLoading]);
 
   return loading ? (
