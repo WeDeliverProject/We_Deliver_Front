@@ -6,7 +6,7 @@ const token = getDataFromStorage();
 const instance = axios.create(
     {
         headers: {
-            "Authorization" : token === null ? null : token.accessToken,
+            "Authorization" : token === null ? null : `Bearer ${token.accessToken}`,
         }
     }
 )
