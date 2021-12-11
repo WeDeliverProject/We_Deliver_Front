@@ -111,6 +111,7 @@ const Login = () => {
       if (response.data) {
         saveDataToStorage(response.data);
       }
+      alert("로그인 성공")
       navigate("/main");
     } catch (e) {
       alert(e);

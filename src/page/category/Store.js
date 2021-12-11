@@ -24,15 +24,15 @@ const Store = ({ data }) => {
   return (
     <Box>
       <Link to="/menu/Korean/StoreName">
-        <Img src={data.img} alt={data.name} />
+        <Img src={`http://localhost:3000/${data.img}`} alt={data.name} />
       </Link>
       <Wrapper>
-        <p>18,000원 이상 주문</p>
-        <p> 4.85</p>
+        <p>{data.min_order_amount}원 이상 주문</p>
+        <p> {data.star}</p>
       </Wrapper>
       <Wrapper>
-        <p>배달비 1500원~</p>
-        <p>리뷰 400개</p>
+        <p>배달비 {data.delivery_fee}원~</p>
+        <p>리뷰 {data.reviewCount}개</p>
       </Wrapper>
     </Box>
   );
