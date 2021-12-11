@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useMember } from "../components";
 
 import Logo from "../img/logo.png";
+import medal from "../img/image 12.png";
+import { getDataFromStorage } from "../utils/storage";
 
 const HeaderBar = styled.div`
   width: 100%;
@@ -14,6 +17,12 @@ const HeaderBar = styled.div`
 
 const Title = styled.div`
   display: flex;
+`;
+
+const Title2 = styled.div`
+  display: flex;
+  margin-top: 30px;
+  margin-right: 30px;
 `;
 
 const SignIn = styled.button`
@@ -41,6 +50,20 @@ const LogoText = styled.div`
   cursor: pointer;
 `;
 
+const NickName = styled.div`
+  font-weight: bold;
+`
+
+const Nim = styled.div`
+  font-weight: bold;
+  color: #C4C4C4;
+`
+
+const Img = styled.img`
+  width: 30px;
+  height: 30px;
+`
+
 const LinkTo = styled(Link)`
   text-decoration: "none";
 
@@ -55,7 +78,19 @@ const LinkTo = styled(Link)`
 `;
 
 const Header = () => {
-  //const [user, setUser] = useState(false)
+  const [user, setUser] = useState(false)
+  const token = getDataFromStorage(); 
+
+  useEffect(() => {   
+    if(token === null) {
+      setUser(false);
+    } else {
+      setUser({
+        nickname: token.nickname
+      })
+    }
+  }, [])
+
   return (
     <HeaderBar>
       <Title>
@@ -64,14 +99,22 @@ const Header = () => {
           <LogoText>배달만해</LogoText>
         </LinkTo>
       </Title>
-      <Title>
-        <LinkTo to="login">
-          <SignIn>로그인</SignIn>
-        </LinkTo>
-        <LinkTo to="register">
-          <Register>회원가입</Register>
-        </LinkTo>
-      </Title>
+      {user === false ?
+        <Title>
+          <LinkTo to="login">
+            <SignIn>로그인</SignIn>
+          </LinkTo>
+          <LinkTo to="register">
+            <Register>회원가입</Register>
+          </LinkTo>
+        </Title>
+        : 
+        <Title2>
+          <Img src={medal} />
+          <NickName>{user.nickname}</NickName>
+          <Nim>님</Nim>
+        </Title2>
+      }
     </HeaderBar>
   );
 };

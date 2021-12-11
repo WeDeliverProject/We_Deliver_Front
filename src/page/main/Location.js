@@ -6,6 +6,7 @@ import "../../AllCss.css";
 import Background from "../../img/location_background.jpg";
 import Placeholder from "../../img/placeholder.png";
 import { Link } from "react-router-dom";
+import { getDataFromStorage } from "../../utils/storage";
 
 const Wrapper = styled.div`
   position: relative;
@@ -117,12 +118,20 @@ const Location = ({ next, handler }) => {
   };
 
   const checkInput = () => {
+    const token = getDataFromStorage();
     if (isAddress === "") {
       alert("주소를 입력하여 주세요.");
-    } else {
+    }
+    
+    if (token === null) {
+      alert("로그인 해!");
+    }
+    
+    if (token !== null && isAddress !== "") {
       handler();
       window.scrollTo(0, h);
     }
+    
   };
 
   return (

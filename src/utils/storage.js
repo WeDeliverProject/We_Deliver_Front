@@ -4,13 +4,13 @@ const saveDataToStorage = (data) => {
   storage.setItem("TOKEN", JSON.stringify(data));
 };
 
-const getDataFromStorage = (name = "USER") => {
+const getDataFromStorage = (name = "TOKEN") => {
   const response = storage.getItem(name);
 
   return JSON.parse(response);
 };
 
-const removeDataFromStorage = (name = "USER") => {
+const removeDataFromStorage = (name = "TOKEN") => {
   storage.removeItem(name);
 };
 

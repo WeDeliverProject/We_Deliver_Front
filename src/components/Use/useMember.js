@@ -4,6 +4,7 @@ const useMember = () => {
   return {
     signupApi: reducer.signupApi,
     loginApi: reducer.loginApi,
+    tokenApi: reducer.tokenApi,
   };
 };
 

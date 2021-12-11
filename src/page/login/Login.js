@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../../img/logo.png";
 import styled from "styled-components";
+import { saveDataToStorage } from "../../utils/storage";
 import { useMember } from "../../components";
 import { httpClient } from "../../remote";
 import { Link, useNavigate } from "react-router-dom";
@@ -107,6 +108,9 @@ const Login = () => {
       const response = await loginApi(body);
       const accessToken = response.data.accessToken;
       httpClient.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      if (response.data) {
+        saveDataToStorage(response.data);
+      }
       navigate("/main");
     } catch (e) {
       alert(e);
