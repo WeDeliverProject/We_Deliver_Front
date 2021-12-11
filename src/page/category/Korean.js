@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useRestaurant, useLoading, CTLoading } from "../../components";
 import Store from "./Store";
 
 const Korean = () => {
   const { loading, setLoading } = useLoading(true);
   const { listAllRestaurants, restaurantList } = useRestaurant();
+  const { category } = useParams();
+  const [data, setData] = useState();
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        await listAllRestaurants("korean");
+        await listAllRestaurants(category);
       } catch (e) {
         alert(e);
       } finally {
