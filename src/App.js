@@ -16,7 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/main" element={<Layout1 />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/menu/Korean" element={<Layout2 />}/>
+        <Route path="/menu/:category" element={<Layout2 />}/>
         <Route path="/" element={<Navigate replace to="/main" />} />
       </Routes>
     </>

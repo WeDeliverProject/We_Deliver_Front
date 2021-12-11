@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const item = [
-  { id: 1, name: "한식", url: `/menu/Korean` },
-  { id: 2, name: "분식", url: `/menu/Snack` },
-  { id: 3, name: "중식", url: `/menu/Chinese` },
-  { id: 4, name: "야식", url: `/menu/Midnight` },
-  { id: 5, name: "일식", url: `/menu/Japanese` },
+  { id: 1, name: "한식", url: `/menu/korean` },
+  { id: 2, name: "분식", url: `/menu/snack` },
+  { id: 3, name: "중식", url: `/menu/chinese` },
+  { id: 4, name: "야식", url: `/menu/midnight` },
+  { id: 5, name: "일식", url: `/menu/japanese` },
 ];
 
 const Wrapper = styled.div`
