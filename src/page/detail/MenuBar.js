@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Box = styled.div`
-  position: ${(props) => (props.scrolled === true ? "fixed" : "static")};
-  top: ${(props) => (props.scrolled === true ? "10px" : "100px")};
+  position: ${(props) => (props.scrolled === true ? "fixed" : "absolute")};
+  top: ${(props) => (props.scrolled === true ? "10px" : "167px")};
+  margin-top : ${(props) => (props.scrolled === true ? "0px": "50px")}
   width: 200px;
-  margin-left: ${(props) => (props.scrolled === true ? "940px" : "40px")};
+  margin-left: ${(props) => (props.scrolled === true ? "940px" : "940px")};
 `;
 
 const Basket = styled.div`
@@ -77,7 +78,9 @@ const MenuBar = () => {
           <Top>장바구니</Top>
         </Basket>
         <Order>주문하기</Order>
-        <JointOrder>공동 주문하기</JointOrder>
+        <div>
+          <JointOrder>공동 주문하기</JointOrder>
+        </div>
       </Box>
     </>
   );
