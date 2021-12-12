@@ -3,12 +3,10 @@ import { getDataFromStorage } from "../utils/storage";
 
 const token = getDataFromStorage();
 
-const instance = axios.create(
-    {
-        headers: {
-            "Authorization" : token === null ? null : token.accessToken,
-        }
-    }
-)
+const instance = axios.create({
+  headers: {
+    Authorization: token === null ? null : `Bearer ${token.accessToken}`,
+  },
+});
 
 export default instance;
