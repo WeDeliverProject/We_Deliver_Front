@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { CTLoading, useMenu, useLoading } from "../../components";
 
 const Block = styled.div`
   display: flex;
@@ -37,7 +38,8 @@ const ModalBlock = styled.div`
   }
 `;
 
-const MenuModal = ({ open, close }) => {
+const MenuModal = ({ open, close, data }) => {
+
   return (
     <>
       {open && (

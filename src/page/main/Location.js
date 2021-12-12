@@ -124,7 +124,7 @@ const Location = ({ next, handler }) => {
     }
     
     if (token === null) {
-      alert("로그인 해!");
+      alert("로그인 해주세요.");
     }
     
     if (token !== null && isAddress !== "") {

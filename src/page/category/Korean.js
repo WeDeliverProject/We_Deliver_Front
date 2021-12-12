@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRestaurant, useLoading, CTLoading } from "../../components";
 import Store from "./Store";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
 
 const Korean = () => {
   const { loading, setLoading } = useLoading(true);
@@ -26,9 +33,13 @@ const Korean = () => {
   return loading ? (
     <CTLoading />
   ) : (
-    restaurantList.results.map((item) => {
-      return <Store key={item._id} data={item} />;
-    })
+    <Wrapper>
+      {
+      restaurantList.results.map((item) => {
+        return <Store key={item._id} data={item} />;
+      })
+    }
+    </Wrapper>
   );
 };
 

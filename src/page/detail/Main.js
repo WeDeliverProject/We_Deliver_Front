@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import MenuBar from "./MenuBar";
 import TabBar from "./TabBar";
 import Logo from "../../img/image 80.png";
+import { useParams } from "react-router-dom";
+import { CTLoading, useRestaurant, useLoading } from "../../components";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,7 +22,8 @@ const Img = styled.img`
   width: 200px;
   height: 200px;
   padding: 10px;
-  margin-left: 100px;
+  margin-left: 50px;
+  margin-right: 80px;
 `;
 
 const Name = styled.div`
@@ -43,17 +46,36 @@ const Info = styled.div`
 `;
 
 const Main = () => {
-  return (
+  const { loading, setLoading } = useLoading(true);
+  const { restaurantId } = useParams();
+
+  const { restaurantOne, getRestaurants } = useRestaurant();
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        await getRestaurants(restaurantId);
+      } catch(err) {
+        alert(err)
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetch();
+  }, [])
+
+  return loading ? 
+  <CTLoading />: (
     <Wrapper>
       <div>
         <Title>
-          <Img src={Logo} />
+          <Img src={`http://localhost:3000/${restaurantOne.img}`} />
           <div>
-            <Name>떡볶이 참 잘하는 집</Name>
-            <Star>별점</Star>
-            <Info>최소주문금액</Info>
-            <Info>배달비</Info>
-            <Info>결제 </Info>
+            <Name>{restaurantOne.name}</Name>
+            <Star>별점 {restaurantOne.star === null ? 0.0 : restaurantOne.star}</Star>
+            <Info>최소주문금액 {restaurantOne.min_order_amount.toLocaleString()}원</Info>
+            <Info>배달비 {restaurantOne.delivery_fee.toLocaleString()}원~</Info>
+            <Info>결제 &nbsp;&nbsp;&nbsp;카드결제, 현금</Info>
           </div>
         </Title>
         <TabBar />

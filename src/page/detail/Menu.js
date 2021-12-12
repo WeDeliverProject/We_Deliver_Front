@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { CTLoading, useLoading } from "../../components";
+import { useMenu } from "../../components/Use";
 
-import Img from "../../img/food.jpg";
 import MenuModal from "./MenuModal";
 
 const Wrapper = styled.div`
   width: 800px;
 `;
+
+const Wrapper2 = styled.div`
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const Box = styled.div`
+  margin-bottom: 30px;
+`
 
 const Title = styled.div`
   font-family: Roboto;
@@ -26,12 +39,12 @@ const Item = styled.div`
 `;
 
 const ItemImg = styled.img`
-  width: 120px;
+  width: 100px;
   height: 80px;
   margin-right: 20px;
 `;
 
-const Hot = () => {
+const Hot = ({result}) => {
   const [Modal, setModalOpen] = useState(false);
 
   const ModalOpen = () => {
@@ -44,41 +57,54 @@ const Hot = () => {
 
   return (
     <>
-      <Title>인기 메뉴</Title>
-      <Item onClick={ModalOpen}>
-        <ItemImg src={Img} alt="임시 이미지" />
-        <div>
-          <p>[판매 1위] 떡순튀 SET</p>
-          <p>15,000원</p>
-        </div>
-      </Item>
-      <MenuModal open={Modal} close={ModalClose} />
-    </>
-  );
-};
-
-const Main = () => {
-  return (
-    <>
-      <Title>메인 메뉴</Title>
-    </>
-  );
-};
-
-const Set = () => {
-  return (
-    <>
-      <Title>세트 메뉴</Title>
+      <Title>{result.category}</Title>
+      <Wrapper2>
+        {result.data.map((item) => {
+          return(
+            <Box>
+              <Item onClick={ModalOpen}>
+                <ItemImg src={`http://localhost:3000/${item.img}`}/>
+                <div>
+                  <p>{item.name}</p>
+                  <p>{item.price.toLocaleString()}원</p>
+                </div>
+              </Item>
+              <MenuModal data={item.addition} open={Modal} close={ModalClose} />
+            </Box>
+          )
+        })}
+      </Wrapper2>
     </>
   );
 };
 
 const Menu = () => {
-  return (
+  const { loading, setLoading } = useLoading(true);
+
+  const { restaurantId } = useParams();
+  const { menuList, listAllMenu } = useMenu();
+
+  useEffect(() => {
+    const fetch = async () => {
+      try{
+        await listAllMenu(restaurantId)
+      } catch (err) {
+        alert(err)
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetch();
+  }, [])
+
+  return loading ? 
+  <CTLoading/> : (
     <Wrapper>
-      <Hot />
-      <Main />
-      <Set />
+      {menuList.results.map((item) => {
+        return (
+          <Hot result={item} />
+        )
+      })}
     </Wrapper>
   );
 };
