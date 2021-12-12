@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./common/Header";
 import Layout1 from "./Layout1";
 import Login from "./page/login/Login";
-import Restaurant from "./page/detail/Resturant"
+import Restaurant from "./page/detail/Resturant";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout2 from "./Layout2";
@@ -16,8 +16,8 @@ const App = () => {
       <Routes>
         <Route path="/main" element={<Layout1 />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/menu/:category" element={<Layout2 />}/>
-        <Route path="/menu/:category/:restaurantId" element={<Restaurant />}/>
+        <Route path="/menu/:category" element={<Layout2 />} />
+        <Route path="/menu/:category/:restaurantId" element={<Restaurant />} />
         <Route path="/" element={<Navigate replace to="/main" />} />
       </Routes>
     </>

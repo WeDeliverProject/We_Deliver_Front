@@ -5,8 +5,8 @@ import Store from "./Store";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  width: 1200px;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 `;
 
@@ -27,18 +27,16 @@ const Korean = () => {
       }
     };
     fetch();
-    console.log(restaurantList);
-  }, [listAllRestaurants, setLoading]);
+    console.log(restaurantList.results);
+  }, []);
 
   return loading ? (
     <CTLoading />
   ) : (
     <Wrapper>
-      {
-      restaurantList.results.map((item) => {
+      {restaurantList.results.map((item) => {
         return <Store key={item._id} data={item} />;
-      })
-    }
+      })}
     </Wrapper>
   );
 };
