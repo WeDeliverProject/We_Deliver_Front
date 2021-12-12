@@ -34,17 +34,9 @@ const Korean = () => {
     <CTLoading />
   ) : (
     <Wrapper>
-<<<<<<< HEAD
       {restaurantList.results.map((item) => {
         return <Store key={item._id} data={item} />;
       })}
-=======
-      {
-      restaurantList.results.map((item) => {
-        return <Store key={item._id} data={item} />;
-      })
-    }
->>>>>>> develop
     </Wrapper>
   );
 };

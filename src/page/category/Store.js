@@ -35,35 +35,20 @@ const Label = ({ isHovering = false }) => (
 );
 
 const Store = ({ data }) => {
-
-  const {category} = useParams();
+  const { category } = useParams();
   const navigate = useNavigate();
 
   const clickHandler = () => {
-    navigate(`/menu/${category}/${data._id}`)
-  }
+    navigate(`/menu/${category}/${data._id}`);
+  };
 
   return (
     <Box>
-<<<<<<< HEAD
-      <Link to="/menu/Korean/StoreName">
-        <Img src={`/${data.img}`} alt={data.name} />
-      </Link>
-      <PriceBox>
-        <p>{data.name}</p>
-        <p>18,000원 이상 주문</p>
-        <Wrapper>
-          <img width="10px" height="10px" src={star} alt="star" />
-          <p> 4.85</p>
-        </Wrapper>
-        <Wrapper>
-          <p>배달비 1500원~</p>
-          <p>리뷰 400개</p>
-        </Wrapper>
-      </PriceBox>
-      <Label />
-=======
-      <Img src={`http://localhost:3000/${data.img}`} alt={data.name} onClick={clickHandler} />
+      <Img
+        src={`http://localhost:3000/${data.img}`}
+        alt={data.name}
+        onClick={clickHandler}
+      />
       <Wrapper>
         <p>{data.min_order_amount.toLocaleString()}원 이상 주문</p>
         <p> {data.star}</p>
@@ -72,7 +57,6 @@ const Store = ({ data }) => {
         <p>배달비 {data.delivery_fee.toLocaleString()}원~</p>
         <p>리뷰 {data.reviewCount}개</p>
       </Wrapper>
->>>>>>> develop
     </Box>
   );
 };

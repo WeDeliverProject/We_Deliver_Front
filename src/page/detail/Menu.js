@@ -19,7 +19,7 @@ const Wrapper2 = styled.div`
 
 const Box = styled.div`
   margin-bottom: 30px;
-`
+`;
 
 const Title = styled.div`
   font-family: Roboto;
@@ -44,7 +44,7 @@ const ItemImg = styled.img`
   margin-right: 20px;
 `;
 
-const Hot = ({result}) => {
+const Hot = ({ result }) => {
   const [Modal, setModalOpen] = useState(false);
 
   const ModalOpen = () => {
@@ -60,10 +60,10 @@ const Hot = ({result}) => {
       <Title>{result.category}</Title>
       <Wrapper2>
         {result.data.map((item) => {
-          return(
+          return (
             <Box>
               <Item onClick={ModalOpen}>
-                <ItemImg src={`http://localhost:3000/${item.img}`}/>
+                <ItemImg src={`http://localhost:3000/${item.img}`} />
                 <div>
                   <p>{item.name}</p>
                   <p>{item.price.toLocaleString()}원</p>
@@ -71,7 +71,7 @@ const Hot = ({result}) => {
               </Item>
               <MenuModal data={item.addition} open={Modal} close={ModalClose} />
             </Box>
-          )
+          );
         })}
       </Wrapper2>
     </>
@@ -86,24 +86,23 @@ const Menu = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      try{
-        await listAllMenu(restaurantId)
+      try {
+        await listAllMenu(restaurantId);
       } catch (err) {
-        alert(err)
+        alert(err);
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetch();
-  }, [])
+  }, []);
 
-  return loading ? 
-  <CTLoading/> : (
+  return loading ? (
+    <CTLoading />
+  ) : (
     <Wrapper>
       {menuList.results.map((item) => {
-        return (
-          <Hot result={item} />
-        )
+        return <Hot result={item} />;
       })}
     </Wrapper>
   );

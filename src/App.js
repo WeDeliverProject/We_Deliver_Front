@@ -3,8 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./common/Header";
 import Layout1 from "./Layout1";
-import Layout2 from "./Layout2";
-import Register from "./page/login/Register";
 import Login from "./page/login/Login";
 import Restaurant from "./page/detail/Resturant";
 
@@ -17,7 +15,6 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/main" element={<Layout1 />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/menu/:category" element={<Layout2 />} />
         <Route path="/menu/:category/:restaurantId" element={<Restaurant />} />
