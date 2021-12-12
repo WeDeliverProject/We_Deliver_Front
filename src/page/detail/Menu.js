@@ -46,8 +46,11 @@ const ItemImg = styled.img`
 
 const Hot = ({ result }) => {
   const [Modal, setModalOpen] = useState(false);
+  const [info, setInfo] = useState();
 
-  const ModalOpen = () => {
+  const ModalOpen = (item) => {
+    setInfo(item);
+    console.log(item);
     setModalOpen(true);
   };
 
@@ -62,17 +65,22 @@ const Hot = ({ result }) => {
         {result.data.map((item) => {
           return (
             <Box>
-              <Item onClick={ModalOpen}>
+              <Item onClick={() => ModalOpen(item)}>
                 <ItemImg src={`http://localhost:3000/${item.img}`} />
                 <div>
                   <p>{item.name}</p>
                   <p>{item.price.toLocaleString()}원</p>
                 </div>
               </Item>
-              <MenuModal data={item.addition} open={Modal} close={ModalClose} />
             </Box>
           );
         })}
+        <MenuModal
+          title={result.category}
+          info={info}
+          open={Modal}
+          close={ModalClose}
+        />
       </Wrapper2>
     </>
   );
@@ -95,6 +103,7 @@ const Menu = () => {
       }
     };
     fetch();
+    console.log(menuList.results);
   }, []);
 
   return loading ? (
