@@ -1,9 +1,11 @@
 import { RadioGroup } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CTLoading, useMenu, useLoading } from "../../components";
+import { CTLoading, useMenu, useLoading, useOrder } from "../../components";
 
 import "../../AllCss.css";
+import { useParams } from "react-router-dom";
+import { concatMenu } from "../../store/reducer/order";
 
 const Block = styled.div`
   display: flex;
@@ -104,7 +106,37 @@ const Button = styled.button`
   font-size: 18px;
 `;
 
-const MenuModal = ({ title, open, close, info }) => {
+const MenuModal = ({ title, open, close, info}) => {
+
+  const { restaurantId } = useParams();
+  const { createListApi, concatMenu } = useOrder();
+
+  const clickHandler = async () => {
+    try {
+      const body = {
+        "menuId": info._id,
+        "name": info.name,
+        "price": info.price,
+        "restaurantId": restaurantId,
+        "addition": check,
+        "count": 1
+      }
+
+      const concatBody = {
+        "id": info._id,
+        "name": info.name,
+        "price": info.price,
+        "count": 1,
+      }
+
+      await createListApi(body);
+      await concatMenu(concatBody);
+    } catch (err) {
+      alert(err);
+    } finally {
+      close()
+    }
+  }
   const [check, setCheck] = useState();
   return (
     <>
@@ -143,7 +175,7 @@ const MenuModal = ({ title, open, close, info }) => {
               ))}
             </ul>
 
-            <Button>추가하기</Button>
+            <Button onClick={clickHandler}>추가하기</Button>
           </ModalBlock>
         </Block>
       )}

@@ -75,7 +75,6 @@ const PriceBox = styled.div`
 `;
 
 const StoreDetail = ({data}) => {
-  console.log(data)
   return (
     <Detail>
       <Store>{data.name}</Store>

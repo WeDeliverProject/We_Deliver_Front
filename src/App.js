@@ -5,6 +5,7 @@ import Header from "./common/Header";
 import Layout1 from "./Layout1";
 import Login from "./page/login/Login";
 import Restaurant from "./page/detail/Resturant";
+import Footer from "./common/Footer";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout2 from "./Layout2";

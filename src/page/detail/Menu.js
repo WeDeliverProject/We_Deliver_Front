@@ -50,7 +50,6 @@ const Hot = ({ result }) => {
 
   const ModalOpen = (item) => {
     setInfo(item);
-    console.log(item);
     setModalOpen(true);
   };
 
@@ -103,7 +102,6 @@ const Menu = () => {
       }
     };
     fetch();
-    console.log(menuList.results);
   }, []);
 
   return loading ? (

@@ -8,11 +8,14 @@ const Wrapper = styled.div`
 `;
 
 const Review = () => {
+
+  
+
   return (
-  <Wrapper>
-    <ReviewScore/>
-    <ReviewDetail/>
-  </Wrapper>
+    <Wrapper>
+      <ReviewScore/>
+      <ReviewDetail/>
+    </Wrapper>
   );
 };
 

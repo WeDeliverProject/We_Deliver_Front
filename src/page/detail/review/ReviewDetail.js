@@ -60,6 +60,10 @@ const Menu = styled.div`
 `
 
 const ReviewDetail = () => {
+
+  
+
+
   return (
     <Wrapper>
         <Count>리뷰 2개</Count>

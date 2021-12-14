@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Back from "./img/tteok.png";
 import Category from "./common/Category";
 import Korean from "./page/category/Korean";
+import Footer from "./common/Footer";
 
 const Box = styled.div`
   width: 1200px;
@@ -24,6 +25,7 @@ const Layout2 = () => {
       <Box>
         <Korean />
       </Box>
+      <Footer/>
     </>
   );
 };
