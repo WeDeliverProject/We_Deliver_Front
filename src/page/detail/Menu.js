@@ -103,7 +103,6 @@ const Menu = () => {
       }
     };
     fetch();
-    console.log(menuList.results);
   }, []);
 
   return loading ? (
