@@ -7,14 +7,12 @@ const Wrapper = styled.div`
   width: 900px;
 `;
 
-const Review = () => {
-
-  
+const Review = ({data}) => {
 
   return (
     <Wrapper>
-      <ReviewScore/>
-      <ReviewDetail/>
+      <ReviewScore results={data}/>
+      <ReviewDetail results={data}/>
     </Wrapper>
   );
 };

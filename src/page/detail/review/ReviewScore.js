@@ -42,9 +42,13 @@ const ScoreDetail = styled.div`
     margin-bottom: 3px;
 `
 
-const ReviewScore = () => {
+const ReviewScore = ({results}) => {
 
-//   const normalise = (value) => ((value - MIN) * 100) / (MAX - MIN);
+  let maxValue = Math.max(...results.starCount);
+  let minValue = Math.min(...results.starCount);
+  if(maxValue === 0) maxValue = 1
+
+  const normalise = (value) => ((value - minValue) * 100) / (maxValue - minValue);
   const BorderLinearProgress = style(LinearProgress)(({ theme }) => ({
     height: "10px",
     borderRadius: "5px",
@@ -62,29 +66,29 @@ const ReviewScore = () => {
   return (
         <Wrapper>
             <Detail>
-                <DetailScore>4.85</DetailScore>
-                <Rating name="half-rating-read" value={4.85} precision={0.05} style={{color : "#FAFF00"}} readOnly />
+                <DetailScore>{results.starRating.toFixed(2)}</DetailScore>
+                <Rating name="half-rating-read" value={results.starRating.toFixed(2)} precision={0.05} style={{color : "#FAFF00"}} readOnly />
             </Detail>
             <Scores>
                 <ScoreDetail>
                     <Score>5점</Score>
-                    <BorderLinearProgress variant="determinate" value={90} />
+                    <BorderLinearProgress variant="determinate" value={normalise(results.starCount[4])} />
                 </ScoreDetail>
                 <ScoreDetail>
                     <Score>4점</Score>
-                    <BorderLinearProgress variant="determinate" value={70} />
+                    <BorderLinearProgress variant="determinate" value={normalise(results.starCount[3])} />
                 </ScoreDetail>
                 <ScoreDetail>
                     <Score>3점</Score>
-                    <BorderLinearProgress variant="determinate" value={30} />
+                    <BorderLinearProgress variant="determinate" value={normalise(results.starCount[2])} />
                 </ScoreDetail>
                 <ScoreDetail>
                     <Score>2점</Score>
-                    <BorderLinearProgress variant="determinate" value={10} />
+                    <BorderLinearProgress variant="determinate" value={normalise(results.starCount[1])} />
                 </ScoreDetail>
                 <ScoreDetail>
                     <Score>1점</Score>
-                    <BorderLinearProgress variant="determinate" value={0} />
+                    <BorderLinearProgress variant="determinate" value={normalise(results.starCount[0])} />
                 </ScoreDetail>
             </Scores>
         </Wrapper>

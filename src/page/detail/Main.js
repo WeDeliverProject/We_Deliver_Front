@@ -5,7 +5,7 @@ import TabBar from "./TabBar";
 import Logo from "../../img/image 80.png";
 import { Rating } from '@mui/material';
 import { useParams } from "react-router-dom";
-import { CTLoading, useRestaurant, useLoading, useOrder } from "../../components";
+import { CTLoading, useRestaurant, useLoading, useOrder, useReview, useMenu } from "../../components";
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,13 +50,17 @@ const Main = () => {
   const { restaurantId } = useParams();
 
   const { restaurantOne, getRestaurants } = useRestaurant();
-  const {orderList, listAllOrder}= useOrder();
+  const { orderList, listAllOrder }= useOrder();
+  const { reviewList, listAllReview } = useReview();
+  const { menuList, listAllMenu } = useMenu();
 
   useEffect(() => {
     const fetch = async () => {
       try {
         await getRestaurants(restaurantId);
         await listAllOrder();
+        await listAllReview(restaurantId);
+        await listAllMenu(restaurantId);
       } catch(err) {
         alert(err)
       } finally {
@@ -64,7 +68,7 @@ const Main = () => {
       }
     }
     fetch();
-  }, [getRestaurants, listAllOrder])
+  }, [getRestaurants, listAllOrder, listAllReview])
 
   return loading ? 
   <CTLoading />: (
@@ -80,9 +84,9 @@ const Main = () => {
             <Info>결제 &nbsp;&nbsp;&nbsp;카드결제, 현금</Info>
           </div>
         </Title>
-        <TabBar />
+        <TabBar menu={menuList} review={reviewList} />
       </div>
-      <MenuBar data={orderList} minOrder={restaurantOne.min_order_amount} deliveryFee={restaurantOne.delivery_fee}/>
+      <MenuBar name={restaurantOne.name} data={orderList} minOrder={restaurantOne.min_order_amount} deliveryFee={restaurantOne.delivery_fee}/>
     </Wrapper>
   );
 };
