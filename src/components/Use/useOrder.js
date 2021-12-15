@@ -3,15 +3,33 @@ import { useActions, useShallowEqualSelectorToJS } from "./components";
 
 const useOrder = () => {
   const jointOrderList = useShallowEqualSelectorToJS((state) =>
-    state.order.get("list")
+    state.order.get("jointList")
+  );
+
+  const orderList = useShallowEqualSelectorToJS((state) =>
+    state.order.get("orderList")
   );
   
   const actions = useActions(reducer);
 
   return {
     jointOrderList,
+    orderList,
 
     listAllJointOrder: actions.listAllJointOrder,
+    listAllOrder: actions.listAllOrder,
+    concatMenu: actions.concatMenu,
+    deleteMenu: actions.deleteMenu,
+    plusCount: actions.plusCount,
+    minusCount: actions.minusCount,
+    deleteOrder: actions.deleteOrder,
+
+    createListApi: reducer.createApi,
+    deleteApi: reducer.deleteApi,
+    minusApi: reducer.minusApi,
+    plusApi: reducer.plusApi,
+    createJointApi: reducer.createJointApi,
+    createOrderApi: reducer.createOrderApi,
   };
 };
 

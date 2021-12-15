@@ -113,6 +113,7 @@ const Login = () => {
       }
       alert("로그인 성공")
       navigate("/main");
+      window.location.reload(false);
     } catch (e) {
       alert(e);
     }

@@ -3,8 +3,9 @@ import styled from "styled-components";
 import MenuBar from "./MenuBar";
 import TabBar from "./TabBar";
 import Logo from "../../img/image 80.png";
+import { Rating } from '@mui/material';
 import { useParams } from "react-router-dom";
-import { CTLoading, useRestaurant, useLoading } from "../../components";
+import { CTLoading, useRestaurant, useLoading, useOrder } from "../../components";
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,8 +35,7 @@ const Name = styled.div`
 `;
 
 const Star = styled.div`
-  margin-top: 5px;
-  margin-bottom: 5px;
+  font-weight: bold;
 `;
 
 const Info = styled.div`
@@ -50,11 +50,13 @@ const Main = () => {
   const { restaurantId } = useParams();
 
   const { restaurantOne, getRestaurants } = useRestaurant();
+  const {orderList, listAllOrder}= useOrder();
 
   useEffect(() => {
     const fetch = async () => {
       try {
         await getRestaurants(restaurantId);
+        await listAllOrder();
       } catch(err) {
         alert(err)
       } finally {
@@ -62,7 +64,7 @@ const Main = () => {
       }
     }
     fetch();
-  }, [])
+  }, [getRestaurants, listAllOrder])
 
   return loading ? 
   <CTLoading />: (
@@ -72,7 +74,7 @@ const Main = () => {
           <Img src={`http://localhost:3000/${restaurantOne.img}`} />
           <div>
             <Name>{restaurantOne.name}</Name>
-            <Star>별점 {restaurantOne.star === null ? 0.0 : restaurantOne.star}</Star>
+            <Rating style={{ marginLeft: "0px" }} name="half-rating-read" value={restaurantOne.star === null ? 0.0 : restaurantOne.star} precision={0.05} style={{color : "#FAFF00"}} readOnly />
             <Info>최소주문금액 {restaurantOne.min_order_amount.toLocaleString()}원</Info>
             <Info>배달비 {restaurantOne.delivery_fee.toLocaleString()}원~</Info>
             <Info>결제 &nbsp;&nbsp;&nbsp;카드결제, 현금</Info>
@@ -80,7 +82,7 @@ const Main = () => {
         </Title>
         <TabBar />
       </div>
-      <MenuBar />
+      <MenuBar data={orderList} minOrder={restaurantOne.min_order_amount} deliveryFee={restaurantOne.delivery_fee}/>
     </Wrapper>
   );
 };

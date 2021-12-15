@@ -63,7 +63,7 @@ const ReviewScore = () => {
         <Wrapper>
             <Detail>
                 <DetailScore>4.85</DetailScore>
-                <Rating name="half-rating-read" value={4.5} precision={0.05} style={{color : "#FAFF00"}} readOnly />
+                <Rating name="half-rating-read" value={4.85} precision={0.05} style={{color : "#FAFF00"}} readOnly />
             </Detail>
             <Scores>
                 <ScoreDetail>

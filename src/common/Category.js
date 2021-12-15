@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const item = [
@@ -31,12 +31,20 @@ const Text = styled.button`
 `;
 
 const Category = () => {
+
+  const navigate = useNavigate();
+
+  const clickHandler = (item) => {
+    navigate(item.url);
+    window.location.reload(false);
+  }
+
   return (
     <Wrapper>
       {item.map((item) => (
-        <Link key={item.id} to={item.url}>
-          <Text>{item.name}</Text>
-        </Link>
+        <Text onClick={() => {
+          clickHandler(item)
+        }}>{item.name}</Text>
       ))}
     </Wrapper>
   );
