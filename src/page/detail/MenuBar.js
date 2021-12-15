@@ -14,9 +14,10 @@ const Box = styled.div`
 const Basket = styled.div`
   width: 200px;
   height: fit-content;
-  min-height: 580px;
+  min-height: 450px;
   border: 1px solid #c4c4c4;
   border-radius: 10px 10px 0 0;
+  padding-bottom: 20px;
 
   div{
     vertical-align: bottom;
@@ -110,7 +111,7 @@ const Order = styled.button`
   background-color: ${(props) => (props.isAccept ? "#FF5959": "#c4c4c4")};
   margin-top: 5px;
   border: 0;
-  cursor: pointer;
+  pointer-events: ${(props) => (props.isAccept ? "auto": "none")};
 `;
 
 const JointOrder = styled.button`
@@ -125,7 +126,7 @@ const JointOrder = styled.button`
   background-color: ${(props) => (props.isAccept ? "#FF5959": "#c4c4c4")};
   margin-top: 5px;
   border: 0;
-  cursor: pointer;
+  pointer-events: ${(props) => (props.isAccept ? "auto": "none")};
 `;
 
 const Total = styled.div`
@@ -149,7 +150,7 @@ const TotalPrice = styled.div`
   margin-right: 5px;
 `
 
-const MenuBar = ({data, minOrder}) => {
+const MenuBar = ({data, minOrder, deliveryFee}) => {
 
   const { deleteApi, deleteMenu, minusCount, minusApi, plusCount, plusApi, createJointApi, createOrderApi, deleteOrder } = useOrder();
 
@@ -211,13 +212,14 @@ const MenuBar = ({data, minOrder}) => {
     } 
   }
   
-  const orderHandler = () => {
+  const orderHandler = (item) => {
     const body = {
       "price": total
     }
     try {
       createOrderApi(body);
       deleteOrder();
+      onClickPayment(item);
       alert("주문이 완료되었습니다.")
     } catch(err) {
       alert(err)
@@ -237,6 +239,41 @@ const MenuBar = ({data, minOrder}) => {
     }
   }
 
+  const onClickPayment = (item) => {
+    /* 1. 가맹점 식별하기 */
+    const { IMP } = window;
+    IMP.init("imp06663652");
+
+    /* 2. 결제 데이터 정의하기 */
+    const data = {
+      pg: "kakaopay", // PG사
+      pay_method: "card", // 결제수단
+      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+      amount: total + deliveryFee, // 결제금액
+      name: "item.name", // 주문명
+      buyer_name: "유저", // 구매자 이름
+      buyer_tel: "01012341234", // 구매자 전화번호
+      buyer_email: "example@example", // 구매자 이메일
+      buyer_addr: "신사동 661-16", // 구매자 주소
+      buyer_postcode: "06018", // 구매자 우편번호
+    };
+
+    /* 4. 결제 창 호출하기 */
+    IMP.request_pay(data, callback);
+  }
+
+  /* 3. 콜백 함수 정의하기 */
+  function callback(response) {
+    const { success, error_msg } = response;
+
+    if (success) {
+      alert("결제 성공");
+    } else {
+      alert(`결제 실패: ${error_msg}`);
+    }
+  }
+
+
   return (
     <>
       <Box scrolled={scrolled}>
@@ -248,14 +285,14 @@ const MenuBar = ({data, minOrder}) => {
                 <MenuName>
                   <Name>{item.name}</Name>
                   <CancelButton onClick={()=> {
-                    return deleteHandler(item.id)
+                    deleteHandler(item.id)
                   }}>x</CancelButton>
                 </MenuName>
                 <PriceCount>
                   <Price>{item.price.toLocaleString()}원</Price>
                   <CountButton>
                     <MinusButton onClick={() => {
-                      return minusHandler(item.id)
+                      minusHandler(item.id)
                     }}>-</MinusButton>
                     <Count>{item.count === null ? 1 : item.count}</Count>
                     <PlusButton onClick={() => {
@@ -268,11 +305,11 @@ const MenuBar = ({data, minOrder}) => {
           })}
         </Basket>
         <div>
-            <Total>
-              <div>합계 :</div>
-              <TotalPrice>{total.toLocaleString()}원</TotalPrice>
-            </Total>
-          </div>
+          <Total>
+            <div>합계 :</div>
+            <TotalPrice>{total.toLocaleString()}원</TotalPrice>
+          </Total>
+        </div>
         <Order onClick={orderHandler} isAccept={total > minOrder}>주문하기</Order>
         <div>
           <JointOrder onClick={orderJointHandler} isAccept={total > 0}>공동 주문하기</JointOrder>

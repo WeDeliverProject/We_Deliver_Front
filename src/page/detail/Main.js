@@ -82,7 +82,7 @@ const Main = () => {
         </Title>
         <TabBar />
       </div>
-      <MenuBar data={orderList} minOrder={restaurantOne.min_order_amount}/>
+      <MenuBar data={orderList} minOrder={restaurantOne.min_order_amount} deliveryFee={restaurantOne.delivery_fee}/>
     </Wrapper>
   );
 };
