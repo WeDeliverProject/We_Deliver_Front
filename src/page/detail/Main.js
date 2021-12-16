@@ -50,7 +50,7 @@ const Main = () => {
   const { restaurantId } = useParams();
 
   const { restaurantOne, getRestaurants } = useRestaurant();
-  const { orderList, listAllOrder }= useOrder();
+  const { orderList, listAllOrder, reviewOrder, reviewOrderOne }= useOrder();
   const { reviewList, listAllReview } = useReview();
   const { menuList, listAllMenu } = useMenu();
 
@@ -61,6 +61,7 @@ const Main = () => {
         await listAllOrder();
         await listAllReview(restaurantId);
         await listAllMenu(restaurantId);
+        await reviewOrderOne(restaurantId);
       } catch(err) {
         alert(err)
       } finally {
@@ -84,7 +85,7 @@ const Main = () => {
             <Info>결제 &nbsp;&nbsp;&nbsp;카드결제, 현금</Info>
           </div>
         </Title>
-        <TabBar menu={menuList} review={reviewList} />
+        <TabBar menu={menuList} review={reviewList} order={reviewOrder} />
       </div>
       <MenuBar name={restaurantOne.name} data={orderList} minOrder={restaurantOne.min_order_amount} deliveryFee={restaurantOne.delivery_fee}/>
     </Wrapper>

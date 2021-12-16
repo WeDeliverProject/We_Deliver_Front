@@ -16,3 +16,5 @@ export const plus = (body) => httpClient.post(`${urls.order}/plus`, body);
 export const minus = (body) => httpClient.post(`${urls.order}/minus`, body);
 
 export const createJoint = (body) => httpClient.post(`${urls.order}/joint`, body);
+
+export const reviewOrder = (restaurantId) => httpClient.get(`${urls.order}/review/${restaurantId}`);

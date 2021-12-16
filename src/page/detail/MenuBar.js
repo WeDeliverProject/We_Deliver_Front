@@ -1,5 +1,6 @@
 import { getAlertUtilityClass } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useOrder, useLoading, CTLoading } from "../../components";
 
@@ -155,6 +156,7 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
   const { deleteApi, deleteMenu, minusCount, minusApi, plusCount, plusApi, createJointApi, createOrderApi, deleteOrder } = useOrder();
 
   const [scrolled, setScrolled] = useState(false);
+  const {restaurantId} = useParams();
 
   let total = 0;
   data.results.map((item) => {
@@ -222,7 +224,8 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
 
   const orderJointHandler = () => {
     const body = {
-      "price": total
+      "price": total,
+      "restaurant_id": restaurantId
     }
     try {
       createJointApi(body);
@@ -264,12 +267,14 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
       alert("이거 뜨면 큰일남..!")
     } else {
       const body = {
-        "price": total
+        "price": total,
+        "restaurant_id": restaurantId
       }
       alert("결제 성공");
       deleteOrder();
       createOrderApi(body);
       alert("주문이 완료되었습니다.");
+      window.location.reload(false);
     }
   }
 

@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Logo from "../../../img/image 144.png";
 import { Rating } from "@mui/material";
-
-import { useParams } from "react-router-dom";
-import { CTLoading, useLoading } from "../../../components";
-import { useReview } from "../../../components/Use";
 
 const Wrapper = styled.div`
   width: 900px;

@@ -22,7 +22,7 @@ const Title = styled.div`
   color: #3d3d3d;
 `;
 
-const TabBar = ({menu, review}) => {
+const TabBar = ({menu, review, order}) => {
   const [activeTab, setActiveTab] = useState("1");
 
   const toggle = (tab) => {
@@ -83,7 +83,7 @@ const TabBar = ({menu, review}) => {
           <Menu menuList={menu}/>
         </TabPane>
         <TabPane tabId="2">
-          <Review data={review} />
+          <Review review={review} order={order}/>
         </TabPane>
         <TabPane tabId="3">
           <Info />
