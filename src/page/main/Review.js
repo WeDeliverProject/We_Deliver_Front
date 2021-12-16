@@ -54,40 +54,32 @@ const ReviewText = styled.p`
   margin-top: 20px;
 `;
 
-const ReviewBox = () => {
+const ReviewBox = ({data}) => {
+
+  console.log(data)
   return (
     <div>
-      <Box>
-        <Img src={ReviewImg} alt="1등" />
-        <TextBox>
-          <Name>트XXX</Name>
-          <p>할아버지 생신 기념으로 가족끼리 시켜먹었어요 ^~^</p>
-        </TextBox>
-      </Box>
-      <Box>
-        <Img src={ReviewImg} alt="2등" />
-        <TextBox>
-          <Name>트XXX</Name>
-          <p>할아버지 생신 기념으로 가족끼리 시켜먹었어요 ^~^</p>
-        </TextBox>
-      </Box>
-      <Box>
-        <Img src={ReviewImg} alt="3등" />
-        <TextBox>
-          <Name>트XXX</Name>
-          <p>할아버지 생신 기념으로 가족끼리 시켜먹었어요 ^~^</p>
-        </TextBox>
-      </Box>
+      {data.results.map((item) => {
+        return(
+          <Box>
+            <Img src={`http://localhost:3000/${item.img}`} alt="1등" />
+            <TextBox>
+              <Name>{item.nickname}</Name>
+              <p>{item.content}</p>
+            </TextBox>
+          </Box>
+        )
+      })}
     </div>
   );
 };
 
-const Review = () => {
+const Review = ({review}) => {
   return (
     <>
       <Title>오늘의 리뷰</Title>
       <Wrapper>
-        <ReviewBox />
+        <ReviewBox data={review} />
         <ReviewLink>
           <ReviewText>리뷰 작성하러가기</ReviewText>
         </ReviewLink>

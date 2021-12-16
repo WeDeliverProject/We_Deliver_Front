@@ -1,5 +1,6 @@
 import { getAlertUtilityClass } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useOrder, useLoading, CTLoading } from "../../components";
 
@@ -150,11 +151,12 @@ const TotalPrice = styled.div`
   margin-right: 5px;
 `
 
-const MenuBar = ({data, minOrder, deliveryFee}) => {
+const MenuBar = ({name, data, minOrder, deliveryFee}) => {
 
   const { deleteApi, deleteMenu, minusCount, minusApi, plusCount, plusApi, createJointApi, createOrderApi, deleteOrder } = useOrder();
 
   const [scrolled, setScrolled] = useState(false);
+  const {restaurantId} = useParams();
 
   let total = 0;
   data.results.map((item) => {
@@ -178,7 +180,8 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
 
   const deleteHandler = (id) => {
     const body = {
-      "menuId": id
+      "menuId": id,
+      "restaurantId": restaurantId
     }
     try {
       deleteApi(body);
@@ -190,7 +193,8 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
 
   const minusHandler = (id) => {
     const body = {
-      "menuId": id
+      "menuId": id,
+      "restaurantId": restaurantId
     }
     try {
       minusCount(body);
@@ -202,7 +206,8 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
 
   const plusHandler = (id) => {
     const body = {
-      "menuId": id
+      "menuId": id,
+      "restaurantId": restaurantId
     }
     try {
       plusCount(body);
@@ -213,14 +218,8 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
   }
   
   const orderHandler = (item) => {
-    const body = {
-      "price": total
-    }
     try {
-      createOrderApi(body);
-      deleteOrder();
       onClickPayment(item);
-      alert("주문이 완료되었습니다.")
     } catch(err) {
       alert(err)
     }
@@ -228,7 +227,8 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
 
   const orderJointHandler = () => {
     const body = {
-      "price": total
+      "price": total,
+      "restaurant_id": restaurantId
     }
     try {
       createJointApi(body);
@@ -246,11 +246,11 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
 
     /* 2. 결제 데이터 정의하기 */
     const data = {
-      pg: "kakaopay", // PG사
+      pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
       amount: total + deliveryFee, // 결제금액
-      name: "item.name", // 주문명
+      name: name, // 주문명
       buyer_name: "유저", // 구매자 이름
       buyer_tel: "01012341234", // 구매자 전화번호
       buyer_email: "example@example", // 구매자 이메일
@@ -267,9 +267,17 @@ const MenuBar = ({data, minOrder, deliveryFee}) => {
     const { success, error_msg } = response;
 
     if (success) {
-      alert("결제 성공");
+      alert("이거 뜨면 큰일남..!")
     } else {
-      alert(`결제 실패: ${error_msg}`);
+      const body = {
+        "price": total,
+        "restaurantId": restaurantId
+      }
+      alert("결제 성공");
+      deleteOrder();
+      createOrderApi(body);
+      alert("주문이 완료되었습니다.");
+      window.location.reload(false);
     }
   }
 

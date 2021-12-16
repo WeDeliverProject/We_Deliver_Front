@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Map from "./Map";
-import Tom from "../../img/TomN.jpg";
-import { useOrder, useLoading, CTLoading } from "../../components";
 
 const Title = styled.div`
   font-family: Roboto;
@@ -88,27 +86,9 @@ const StoreDetail = ({data}) => {
   );
 };
 
-const Order = () => {
+const Order = ({order}) => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-  //const [status, setStatus] = useState(null);
-  const { loading, setLoading } = useLoading(true);
-  const { listAllJointOrder, jointOrderList } = useOrder();
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        await listAllJointOrder();
-      } catch (e) {
-        alert(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetch();
-
-  }, [])
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -132,10 +112,10 @@ const Order = () => {
       <Title>공동 주문</Title>
       <div style={{ display: "flex" }}>
         <div onClick={getLocation}>
-          <Map Lat={lat} Lng={lng} orders={jointOrderList} />
+          <Map Lat={lat} Lng={lng} orders={order} />
         </div>
         <Container>
-          {jointOrderList.results.map((item) => {
+          {order.results.map((item) => {
             return (
             <StoreDetail data={item}/>
             )})

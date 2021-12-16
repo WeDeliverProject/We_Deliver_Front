@@ -10,6 +10,7 @@ export const DELETE_MENU = "order/DELETE_MENU";
 export const PLUS_MENU = "order/PLUS_MENU";
 export const MINUS_MENU = "order/MINUS_MENU";
 export const DELETE_ORDER = "order/DELETE_ORDER";
+export const REVIEW_ORDER = "order/REVIEW_ORDER";
 
 export const concatMenu = createAction(CONCAT_MENU, (menu) => menu);
 export const deleteMenu = createAction(DELETE_MENU, (menu) => menu);
@@ -26,6 +27,11 @@ export const listAllJointOrder = createAction(
 export const listAllOrder = createAction(
   LISTALL_ORDER,
   OrderApi.listAll
+);
+
+export const reviewOrderOne = createAction(
+  REVIEW_ORDER,
+  OrderApi.reviewOrder
 )
 
 export const createApi = OrderApi.create;
@@ -44,7 +50,11 @@ const initialState = Map({
   orderList: Map({
     count: 0,
     results: List([]),
-  })
+  }),
+
+  reviewOrder: Map(
+    {}
+  )
 });
 
 export default handleActions(
@@ -145,7 +155,15 @@ export default handleActions(
 
         return state.set("orderList", fromJS(data));
       },
-    })
+    }),
+    ...pender({
+      type: REVIEW_ORDER,
+      onSuccess: (state, action) => {
+        const data = action.payload.data;
+
+        return state.set("reviewOrder", fromJS(data));
+      },
+    }),
   },
   initialState
 );

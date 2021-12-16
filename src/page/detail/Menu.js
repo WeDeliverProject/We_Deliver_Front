@@ -85,28 +85,8 @@ const Hot = ({ result }) => {
   );
 };
 
-const Menu = () => {
-  const { loading, setLoading } = useLoading(true);
-
-  const { restaurantId } = useParams();
-  const { menuList, listAllMenu } = useMenu();
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        await listAllMenu(restaurantId);
-      } catch (err) {
-        alert(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetch();
-  }, []);
-
-  return loading ? (
-    <CTLoading />
-  ) : (
+const Menu = ({menuList}) => {
+  return (
     <Wrapper>
       {menuList.results.map((item) => {
         return <Hot result={item} />;
