@@ -180,7 +180,8 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
 
   const deleteHandler = (id) => {
     const body = {
-      "menuId": id
+      "menuId": id,
+      "restaurantId": restaurantId
     }
     try {
       deleteApi(body);
@@ -192,7 +193,8 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
 
   const minusHandler = (id) => {
     const body = {
-      "menuId": id
+      "menuId": id,
+      "restaurantId": restaurantId
     }
     try {
       minusCount(body);
@@ -204,7 +206,8 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
 
   const plusHandler = (id) => {
     const body = {
-      "menuId": id
+      "menuId": id,
+      "restaurantId": restaurantId
     }
     try {
       plusCount(body);
@@ -268,7 +271,7 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
     } else {
       const body = {
         "price": total,
-        "restaurant_id": restaurantId
+        "restaurantId": restaurantId
       }
       alert("결제 성공");
       deleteOrder();

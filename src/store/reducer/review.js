@@ -17,6 +17,8 @@ export const listAllTodayReview = createAction(
   ReviewApi.listAllTodayReview
 );
 
+export const createApi = ReviewApi.create;
+
 const initialState = Map({
   list: Map({
     count: 0,

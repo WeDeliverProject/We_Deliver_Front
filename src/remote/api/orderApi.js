@@ -5,7 +5,7 @@ export const getJoint = () => httpClient.get(`${urls.order}/joint`);
 
 export const create = (body) => httpClient.post(`${urls.order}/list`, body);
 
-export const listAll = () => httpClient.get(`${urls.order}`);
+export const listAll = (restaurantId) => httpClient.get(`${urls.order}/myList/${restaurantId}`);
 
 export const createOrder = (body) => httpClient.post(`${urls.order}/`, body);
 

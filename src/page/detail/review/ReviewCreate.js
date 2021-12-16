@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import {Rating} from '@mui/material';
+import {getAlertUtilityClass, Rating} from '@mui/material';
+import { useReview } from '../../../components';
+import { getDataFromStorage } from '../../../utils/storage';
+import { useParams } from 'react-router-dom';
 
 const Wrapper = styled.div`
   border: 1px solid #8DD6FF;
@@ -82,6 +85,12 @@ const FileUpload = styled.div`
 const ReviewCreate = ({order, onToggle}) => {
 
     const [data, setData] = useState({});
+    const [image, setImage] = useState();
+
+    const { restaurantId } = useParams();
+
+    const { createApi } = useReview();
+    const token = getDataFromStorage();
     
     const changeHandler = (e) => {
         setData({
@@ -89,12 +98,36 @@ const ReviewCreate = ({order, onToggle}) => {
             [e.target.name]: e.target.value, 
         })
     }
+    const imageChange = (e) => {
+        setImage(e.target.files[0]);
+      };
+    
     const count = order.menu.length;
     const menuName = order.menu[0].name + (count > 1 ? ` 외 ${count-1}개`: "");
-
     const okHandler = () => {
 
-        onToggle(false);
+        if(data.star_rating && data.content && image) {
+            const formData = new FormData();
+            formData.append("star_rating", data.star_rating);
+            formData.append("nickname", token.nickname);
+            formData.append("content", data.content);
+            formData.append("image", image);
+            formData.append("restaurantId", restaurantId);
+            formData.append("orderId", order._id);
+            formData.append("menu", menuName);
+
+            try{
+                createApi(formData);
+                alert("리뷰가 등록되었습니다.");
+                window.location.reload(false);
+            } catch(err) {
+                alert(err);
+            } finally {
+                onToggle(false);
+            }
+        } else {
+            alert("빈 칸을 채워주세요");
+        }
     }
 
     const cancelHandler = () => {
@@ -124,7 +157,7 @@ const ReviewCreate = ({order, onToggle}) => {
                     <Input name="content" onChange={changeHandler} value={data.content} />
                 </Content>
                 <FileUpload>
-                    <input type="file" name="file" id="imageFileOpenInput" accept="image/*"/>
+                    <input type="file" name="file" id="imageFileOpenInput" onChange={imageChange} accept="image/*"/>
                 </FileUpload>
             </Wrapper>
         </>

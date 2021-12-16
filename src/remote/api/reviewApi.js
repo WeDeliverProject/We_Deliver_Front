@@ -7,3 +7,6 @@ export const listAll = (restaurantId) =>
 export const listAllTodayReview = () => 
   httpClient.get(`${urls.review}/today/o`);
 
+export const create = (body) =>
+  httpClient.post(`${urls.review}/`, body);
+

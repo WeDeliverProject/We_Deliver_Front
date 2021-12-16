@@ -59,6 +59,7 @@ const Menu = styled.div`
 
 const ReviewDetail = ({results}) => {
 
+  
   return (
     <Wrapper>
       <Count>리뷰 {results.count}개</Count>
@@ -77,7 +78,7 @@ const ReviewDetail = ({results}) => {
                 />
               </DetailNickName>
               <DetailContents>{item.content}</DetailContents>
-              <Menu>[구성 1위] 떡치치 SET</Menu>
+              <Menu>{item.menu}</Menu>
             </Detail>
           </Review>
         );

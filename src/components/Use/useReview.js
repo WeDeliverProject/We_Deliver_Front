@@ -17,7 +17,10 @@ const useReview = () => {
     reviewTodayList,
 
     listAllReview: actions.listAllReview,
-    listAllTodayReview: actions.listAllTodayReview
+    listAllTodayReview: actions.listAllTodayReview,
+
+    createApi: reducer.createApi,
+  
   };
 };
 

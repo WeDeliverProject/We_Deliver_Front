@@ -58,7 +58,7 @@ const Main = () => {
     const fetch = async () => {
       try {
         await getRestaurants(restaurantId);
-        await listAllOrder();
+        await listAllOrder(restaurantId);
         await listAllReview(restaurantId);
         await listAllMenu(restaurantId);
         await reviewOrderOne(restaurantId);
