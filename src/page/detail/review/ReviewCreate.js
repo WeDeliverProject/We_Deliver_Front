@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import {getAlertUtilityClass, Rating} from '@mui/material';
+import { Rating} from '@mui/material';
 import { useReview } from '../../../components';
 import { getDataFromStorage } from '../../../utils/storage';
 import { useParams } from 'react-router-dom';
