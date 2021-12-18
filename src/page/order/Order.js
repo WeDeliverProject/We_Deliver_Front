@@ -6,7 +6,7 @@ import OrderList from "./OrderList";
 const Box = styled.div`
   width: 1000px;
   margin: 0 auto;
-  height: 450px;
+  height: 500px;
 `;
 
 const Order = () => {

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import { Tab, Nav, Row, Col } from "react-bootstrap";
 import {
   useOrder,
@@ -9,6 +11,7 @@ import {
 } from "../../components";
 
 import edit from "../../img/edit.png";
+import { Link } from "react-router-dom";
 
 const GreyText = styled.p`
   font-size: 15px;
@@ -55,6 +58,11 @@ const Button = styled.button`
 const OrderList = () => {
   const { loading, setLoading } = useLoading(true);
   const { listAllMy, myList } = useOrder();
+  const navigate = useNavigate();
+
+  const clickHandler = (category, id) => {
+    navigate(`/menu/${category}/${id}`);
+  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -111,22 +119,33 @@ const OrderList = () => {
             {myList.results.map((item) => (
               <Tab.Pane eventKey={item._id}>
                 <GreyText>배달이 완료되었어요</GreyText>
-                <Name>{item.restaurantName}</Name>
+                <Name
+                  onClick={() =>
+                    clickHandler(item.restaurantCategory, item.restaurant_id)
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  {item.restaurantName} >
+                </Name>
                 <p>
                   {item.menu[0].name} 외 {item.menu.length - 1}개
                 </p>
                 <GreyText2>주문일시 : {item.date}</GreyText2>
                 <GreyText2>공동주문 : {item.joint ? "Y" : "N"}</GreyText2>
+                <GreyText2>배달 주소 : {item.address}</GreyText2>
                 <hr />
                 {item.menu.map((data) => (
                   <Box>
                     <MenuBox>
                       <p>{data.name}</p>
-                      <p>{data.price}원</p>
+                      <p>{data.price.toLocaleString()}원</p>
                     </MenuBox>
                     {data.addition ? (
                       <>
-                        <GreyText2> 기본 :{data.price}</GreyText2>
+                        <GreyText2>
+                          {" "}
+                          기본 :{data.price.toLocaleString()}
+                        </GreyText2>
                         <GreyText2>옵션:{data.addition}(+원)</GreyText2>
                       </>
                     ) : (
@@ -140,12 +159,12 @@ const OrderList = () => {
                 </MenuBox>
                 <MenuBox>
                   <p style={{ fontWeight: "bold" }}>배달팁 </p>
-                  <p style={{ fontWeight: "bold" }}>2000원</p>
+                  <p style={{ fontWeight: "bold" }}>{item.deliver_free}원</p>
                 </MenuBox>
                 <hr></hr>
                 <MenuBox>
                   <Name>총 결제금액</Name>
-                  <Name>{item.price}원</Name>
+                  <Name>{item.price.toLocaleString()}원</Name>
                 </MenuBox>
                 {item.review ? (
                   <></>

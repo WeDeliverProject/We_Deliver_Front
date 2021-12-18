@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import DaumPostcode from "react-daum-postcode";
 
@@ -79,6 +79,14 @@ const Location = ({ next, handler }) => {
   const [isAddress, setIsAddress] = useState("");
   const [isZoneCode, setIsZoneCode] = useState();
 
+  useEffect(() => {
+    let data = getDataFromStorage();
+    if (data.address !== "") {
+      setIsAddress(data.address);
+      window.scrollTo(0, h);
+    }
+  }, []);
+
   // 팝업창 열기
   const openPostCode = () => {
     setIsPopupOpen(true);
@@ -122,22 +130,21 @@ const Location = ({ next, handler }) => {
     if (isAddress === "") {
       alert("주소를 입력하여 주세요.");
     }
-    
+
     if (token === null) {
       alert("로그인 해주세요.");
     }
-    
+
     if (token !== null && isAddress !== "") {
       let data = getDataFromStorage();
       data = {
         ...data,
         address: isAddress,
-      }
+      };
       saveDataToStorage(data);
       handler();
       window.scrollTo(0, h);
     }
-    
   };
 
   return (
