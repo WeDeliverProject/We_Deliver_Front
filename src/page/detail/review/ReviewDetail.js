@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Logo from "../../../img/image 144.png";
 import { Rating } from "@mui/material";
-
-import { useParams } from "react-router-dom";
-import { CTLoading, useLoading } from "../../../components";
-import { useReview } from "../../../components/Use";
 
 const Wrapper = styled.div`
   width: 900px;
@@ -62,32 +57,13 @@ const Menu = styled.div`
   padding: 5px 20px 8px 20px;
 `;
 
-const ReviewDetail = () => {
-  const { loading, setLoading } = useLoading(true);
+const ReviewDetail = ({results}) => {
 
-  const { restaurantId } = useParams();
-  const { reviewList, listAllReview } = useReview();
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        await listAllReview(restaurantId);
-      } catch (err) {
-        alert(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetch();
-    console.log(reviewList);
-  }, []);
-
-  return loading ? (
-    <CTLoading />
-  ) : (
+  
+  return (
     <Wrapper>
-      <Count>리뷰 {reviewList.count}개</Count>
-      {reviewList.results.map((item) => {
+      <Count>리뷰 {results.count}개</Count>
+      {results.results.map((item) => {
         return (
           <Review>
             <Img src={`http://localhost:3000/${item.img}`} />
@@ -102,7 +78,7 @@ const ReviewDetail = () => {
                 />
               </DetailNickName>
               <DetailContents>{item.content}</DetailContents>
-              <Menu>[구성 1위] 떡치치 SET</Menu>
+              <Menu>{item.menu}</Menu>
             </Detail>
           </Review>
         );

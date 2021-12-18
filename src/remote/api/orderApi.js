@@ -5,7 +5,8 @@ export const getJoint = () => httpClient.get(`${urls.order}/joint`);
 
 export const create = (body) => httpClient.post(`${urls.order}/list`, body);
 
-export const listAll = () => httpClient.get(`${urls.order}`);
+export const listAll = (restaurantId) =>
+  httpClient.get(`${urls.order}/myList/${restaurantId}`);
 
 export const createOrder = (body) => httpClient.post(`${urls.order}/`, body);
 
@@ -19,3 +20,6 @@ export const createJoint = (body) =>
   httpClient.post(`${urls.order}/joint`, body);
 
 export const my = () => httpClient.get(`${urls.order}/my`);
+
+export const reviewOrder = (restaurantId) =>
+  httpClient.get(`${urls.order}/review/${restaurantId}`);

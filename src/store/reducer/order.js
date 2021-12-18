@@ -11,6 +11,7 @@ export const PLUS_MENU = "order/PLUS_MENU";
 export const MINUS_MENU = "order/MINUS_MENU";
 export const DELETE_ORDER = "order/DELETE_ORDER";
 export const LISTALL_MY = "ordere/LISTALL_MY";
+export const REVIEW_ORDER = "order/REVIEW_ORDER";
 
 export const concatMenu = createAction(CONCAT_MENU, (menu) => menu);
 export const deleteMenu = createAction(DELETE_MENU, (menu) => menu);
@@ -25,6 +26,8 @@ export const listAllJointOrder = createAction(
 
 export const listAllOrder = createAction(LISTALL_ORDER, OrderApi.listAll);
 export const listAllMy = createAction(LISTALL_MY, OrderApi.my);
+
+export const reviewOrderOne = createAction(REVIEW_ORDER, OrderApi.reviewOrder);
 
 export const createApi = OrderApi.create;
 export const deleteApi = OrderApi.remove;
@@ -47,6 +50,8 @@ const initialState = Map({
     count: 0,
     results: List([]),
   }),
+
+  reviewOrder: Map({}),
 });
 
 export default handleActions(
@@ -151,11 +156,19 @@ export default handleActions(
       },
     }),
     ...pender({
-      ttype: LISTALL_MY,
+      type: LISTALL_MY,
       onSuccess: (state, action) => {
         const data = action.payload.data;
 
         return state.set("my", fromJS(data));
+      },
+    }),
+    ...pender({
+      type: REVIEW_ORDER,
+      onSuccess: (state, action) => {
+        const data = action.payload.data;
+
+        return state.set("reviewOrder", fromJS(data));
       },
     }),
   },

@@ -14,12 +14,17 @@ const useOrder = () => {
     state.order.get("myList")
   );
 
+  const reviewOrder = useShallowEqualSelectorToJS((state) =>
+    state.order.get("reviewOrder")
+  );
+
   const actions = useActions(reducer);
 
   return {
     jointOrderList,
     orderList,
     myList,
+    reviewOrder,
 
     listAllJointOrder: actions.listAllJointOrder,
     listAllOrder: actions.listAllOrder,
@@ -29,6 +34,7 @@ const useOrder = () => {
     plusCount: actions.plusCount,
     minusCount: actions.minusCount,
     deleteOrder: actions.deleteOrder,
+    reviewOrderOne: actions.reviewOrderOne,
 
     createListApi: reducer.createApi,
     deleteApi: reducer.deleteApi,
