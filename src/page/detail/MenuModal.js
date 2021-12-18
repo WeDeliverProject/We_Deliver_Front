@@ -5,7 +5,6 @@ import { CTLoading, useMenu, useLoading, useOrder } from "../../components";
 
 import "../../AllCss.css";
 import { useParams } from "react-router-dom";
-import { concatMenu } from "../../store/reducer/order";
 
 const Block = styled.div`
   display: flex;
@@ -44,6 +43,10 @@ const ModalBlock = styled.div`
     height: 0;
   }
 `;
+
+const CategoryName = styled.div`
+  margin-top: 20px;
+`
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -110,13 +113,12 @@ const MenuModal = ({ title, open, close, info}) => {
 
   const { restaurantId } = useParams();
   const { createListApi, concatMenu } = useOrder();
-
   const clickHandler = async () => {
     try {
       const body = {
         "menuId": info._id,
         "name": info.name,
-        "price": info.price,
+        "price": info.price + check.price,
         "restaurantId": restaurantId,
         "addition": check,
         "count": 1
@@ -125,7 +127,7 @@ const MenuModal = ({ title, open, close, info}) => {
       const concatBody = {
         "id": info._id,
         "name": info.name,
-        "price": info.price,
+        "price": info.price + check.price,
         "count": 1,
       }
 
@@ -137,7 +139,16 @@ const MenuModal = ({ title, open, close, info}) => {
       close()
     }
   }
-  const [check, setCheck] = useState();
+
+  const [check, setCheck] = useState({price:0});
+  const changeHandler = (data) => {
+    setCheck({
+      name: data.name,
+      price: data.price
+    })
+  }
+
+  console.log(check);
   return (
     <>
       {open && (
@@ -154,28 +165,35 @@ const MenuModal = ({ title, open, close, info}) => {
                 width="150px"
                 height="150px"
                 alt={info.img}
-                src={`http://localhost:3000/${info.img}`}
+                src={`/${info.img}`}
               />
-              <p>추가 옵션</p>
             </Content>
             <ul>
               {info.addition.map((item) => (
-                <li>
-                  <Label>
-                    <input
-                      type="radio"
-                      value={item.name}
-                      onChange={() => setCheck(item.name)}
-                      checked={check === item.name}
-                    />
-                    {item.name}
-                    <Price>(+{item.price.toLocaleString()}원)</Price>
-                  </Label>
-                </li>
+                <>
+                  <CategoryName>{item.category}</CategoryName>
+                  {item.data.map((plus) => {
+                    return (
+                      <li>
+                        <Label>
+                          <input
+                            type="radio"
+                            name={plus.name}
+                            value={plus.name}
+                            onChange={() => {changeHandler(plus)}}
+                            checked={check.name === plus.name}
+                          />
+                          {plus.name}
+                          <Price>(+{plus.price.toLocaleString()}원)</Price>
+                        </Label>
+                      </li>
+                    )
+                  })}
+                </>
               ))}
             </ul>
 
-            <Button onClick={clickHandler}>추가하기</Button>
+            <Button onClick={() => {clickHandler()}}>추가하기</Button>
           </ModalBlock>
         </Block>
       )}

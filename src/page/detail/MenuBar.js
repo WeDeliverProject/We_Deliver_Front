@@ -1,8 +1,8 @@
-import { getAlertUtilityClass } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useOrder, useLoading, CTLoading } from "../../components";
+import { getDataFromStorage } from "../../utils/storage";
 
 const Box = styled.div`
   position: ${(props) => (props.scrolled === true ? "fixed" : "absolute")};
@@ -43,8 +43,7 @@ const MenuName = styled.div`
 const CancelButton = styled.button`
   background-color: white;
   border: 0;
-  font-weight: bold;
-  margin-right: 5px;
+  margin-left: 5px;
 `
 
 const PriceCount = styled.div`
@@ -55,8 +54,8 @@ const PriceCount = styled.div`
 
 const Price = styled.div`
   font-weight: bold;
-  margin-left: 10px;
   margin-top : 4px;
+  margin-left: -40px;
 `
 
 const CountButton = styled.div`
@@ -254,7 +253,7 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
       buyer_name: "유저", // 구매자 이름
       buyer_tel: "01012341234", // 구매자 전화번호
       buyer_email: "example@example", // 구매자 이메일
-      buyer_addr: "신사동 661-16", // 구매자 주소
+      buyer_addr: "공릉동 661-16", // 구매자 주소
       buyer_postcode: "06018", // 구매자 우편번호
     };
 
@@ -267,17 +266,18 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
     const { success, error_msg } = response;
 
     if (success) {
-      alert("이거 뜨면 큰일남..!")
-    } else {
       const body = {
         "price": total,
-        "restaurantId": restaurantId
+        "restaurantId": restaurantId,
+        "address": getDataFromStorage().address
       }
       alert("결제 성공");
       deleteOrder();
       createOrderApi(body);
       alert("주문이 완료되었습니다.");
       window.location.reload(false);
+    } else {
+      alert(`결제 실패: ${error_msg}`);
     }
   }
 
@@ -292,11 +292,11 @@ const MenuBar = ({name, data, minOrder, deliveryFee}) => {
               <Menu>
                 <MenuName>
                   <Name>{item.name}</Name>
-                  <CancelButton onClick={()=> {
-                    deleteHandler(item.id)
-                  }}>x</CancelButton>
                 </MenuName>
                 <PriceCount>
+                  <CancelButton onClick={()=> {
+                      deleteHandler(item.id)
+                  }}>x</CancelButton>
                   <Price>{item.price.toLocaleString()}원</Price>
                   <CountButton>
                     <MinusButton onClick={() => {
