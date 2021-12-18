@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import {
 } from "../../components";
 
 import edit from "../../img/edit.png";
+import "../../AllCss.css"
+import ReviewModal from "./ReviewModal";
 import { Link } from "react-router-dom";
 
 const GreyText = styled.p`
@@ -58,6 +60,15 @@ const Button = styled.button`
 const OrderList = () => {
   const { loading, setLoading } = useLoading(true);
   const { listAllMy, myList } = useOrder();
+  const [Modal, setModalOpen] = useState(false);
+
+  const ModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const ModalClose = () => {
+    setModalOpen(false);
+  }
   const navigate = useNavigate();
 
   const clickHandler = (category, id) => {
@@ -90,7 +101,7 @@ const OrderList = () => {
             style={{ flexWrap: "nowrap", height: "600px", overflowY: "scroll" }}
             fill="true"
             variant="pills"
-            className="flex-column"
+            className="flex-column myClass"
           >
             {myList.results.map((item, v) => (
               <Nav.Item
@@ -125,7 +136,7 @@ const OrderList = () => {
                   }
                   style={{ cursor: "pointer" }}
                 >
-                  {item.restaurantName} >
+                  {item.restaurantName}
                 </Name>
                 <p>
                   {item.menu[0].name} 외 {item.menu.length - 1}개
@@ -146,7 +157,7 @@ const OrderList = () => {
                           {" "}
                           기본 :{data.price.toLocaleString()}
                         </GreyText2>
-                        <GreyText2>옵션:{data.addition}(+원)</GreyText2>
+                        <GreyText2>옵션:{data.addition.price}(+원)</GreyText2>
                       </>
                     ) : (
                       <GreyText2>기본:{data.price}</GreyText2>
@@ -169,9 +180,15 @@ const OrderList = () => {
                 {item.review ? (
                   <></>
                 ) : (
-                  <Button>
-                    <img width="20px" src={edit} alt="edit"></img>리뷰 작성하기
-                  </Button>
+                  <>
+                    <Button onClick={ModalOpen}>
+                      <img width="20px" src={edit} alt="edit"></img>리뷰 작성하기
+                    </Button>
+                    <ReviewModal
+                      open={Modal}
+                      close={ModalClose}
+                      order={item}/>
+                  </>
                 )}
               </Tab.Pane>
             ))}
