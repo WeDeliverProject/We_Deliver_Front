@@ -160,7 +160,7 @@ export default handleActions(
       onSuccess: (state, action) => {
         const data = action.payload.data;
 
-        return state.set("my", fromJS(data));
+        return state.set("myList", fromJS(data));
       },
     }),
     ...pender({
