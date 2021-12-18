@@ -9,6 +9,7 @@ import Footer from "./common/Footer";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout2 from "./Layout2";
+import Order from "./page/order/Order";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/main" element={<Layout1 />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/orderList" element={<Order />} />
         <Route path="/menu/:category" element={<Layout2 />} />
         <Route path="/menu/:category/:restaurantId" element={<Restaurant />} />
         <Route path="/" element={<Navigate replace to="/main" />} />
