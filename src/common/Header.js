@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMember } from "../components";
@@ -52,17 +52,17 @@ const LogoText = styled.div`
 
 const NickName = styled.div`
   font-weight: bold;
-`
+`;
 
 const Nim = styled.div`
   font-weight: bold;
-  color: #C4C4C4;
-`
+  color: #c4c4c4;
+`;
 
 const Img = styled.img`
   width: 30px;
   height: 30px;
-`
+`;
 
 const LinkTo = styled(Link)`
   text-decoration: "none";
@@ -77,19 +77,26 @@ const LinkTo = styled(Link)`
   color: black;
 `;
 
-const Header = () => {
-  const [user, setUser] = useState(false)
-  const token = getDataFromStorage(); 
+const Order = styled.p`
+  text-decoration: underline;
+  font-size: 12px;
+  line-height: 30px;
+  margin-right: 15px;
+`;
 
-  useEffect(() => {   
-    if(token === null) {
+const Header = () => {
+  const [user, setUser] = useState(false);
+  const token = getDataFromStorage();
+
+  useEffect(() => {
+    if (token === null) {
       setUser(false);
     } else {
       setUser({
-        nickname: token.nickname
-      })
+        nickname: token.nickname,
+      });
     }
-  }, [])
+  }, []);
 
   return (
     <HeaderBar>
@@ -99,7 +106,7 @@ const Header = () => {
           <LogoText>배달만해</LogoText>
         </LinkTo>
       </Title>
-      {user === false ?
+      {user === false ? (
         <Title>
           <LinkTo to="login">
             <SignIn>로그인</SignIn>
@@ -108,13 +115,16 @@ const Header = () => {
             <Register>회원가입</Register>
           </LinkTo>
         </Title>
-        : 
+      ) : (
         <Title2>
+          <LinkTo to="orderList">
+            <Order>주문내역</Order>
+          </LinkTo>
           <Img src={medal} />
           <NickName>{user.nickname}</NickName>
           <Nim>님</Nim>
         </Title2>
-      }
+      )}
     </HeaderBar>
   );
 };

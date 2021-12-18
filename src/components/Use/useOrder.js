@@ -9,15 +9,21 @@ const useOrder = () => {
   const orderList = useShallowEqualSelectorToJS((state) =>
     state.order.get("orderList")
   );
-  
+
+  const myList = useShallowEqualSelectorToJS((state) =>
+    state.order.get("myList")
+  );
+
   const actions = useActions(reducer);
 
   return {
     jointOrderList,
     orderList,
+    myList,
 
     listAllJointOrder: actions.listAllJointOrder,
     listAllOrder: actions.listAllOrder,
+    listAllMy: actions.listAllMy,
     concatMenu: actions.concatMenu,
     deleteMenu: actions.deleteMenu,
     plusCount: actions.plusCount,

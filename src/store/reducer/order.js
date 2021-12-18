@@ -10,6 +10,7 @@ export const DELETE_MENU = "order/DELETE_MENU";
 export const PLUS_MENU = "order/PLUS_MENU";
 export const MINUS_MENU = "order/MINUS_MENU";
 export const DELETE_ORDER = "order/DELETE_ORDER";
+export const LISTALL_MY = "ordere/LISTALL_MY";
 
 export const concatMenu = createAction(CONCAT_MENU, (menu) => menu);
 export const deleteMenu = createAction(DELETE_MENU, (menu) => menu);
@@ -17,16 +18,13 @@ export const plusCount = createAction(PLUS_MENU, (menu) => menu);
 export const minusCount = createAction(MINUS_MENU, (menu) => menu);
 export const deleteOrder = createAction(DELETE_ORDER);
 
-
 export const listAllJointOrder = createAction(
   LISTALL_JOINT_ORDER,
   OrderApi.getJoint
 );
 
-export const listAllOrder = createAction(
-  LISTALL_ORDER,
-  OrderApi.listAll
-)
+export const listAllOrder = createAction(LISTALL_ORDER, OrderApi.listAll);
+export const listAllMy = createAction(LISTALL_MY, OrderApi.my);
 
 export const createApi = OrderApi.create;
 export const deleteApi = OrderApi.remove;
@@ -44,7 +42,11 @@ const initialState = Map({
   orderList: Map({
     count: 0,
     results: List([]),
-  })
+  }),
+  myList: Map({
+    count: 0,
+    results: List([]),
+  }),
 });
 
 export default handleActions(
@@ -54,19 +56,19 @@ export default handleActions(
       let count = state.getIn(["orderList", "count"]);
       let idx = -1;
       let cnt;
-      for(let i=0; i<results.size; i++) {
-        if(results.getIn([i,'id']) === menu.id) {
-          cnt = results.getIn([i,'count']);
+      for (let i = 0; i < results.size; i++) {
+        if (results.getIn([i, "id"]) === menu.id) {
+          cnt = results.getIn([i, "count"]);
           idx = i;
           break;
         }
       }
-      
-      if(idx === -1) {
+
+      if (idx === -1) {
         count += 1;
-        results = [...results, menu]
+        results = [...results, menu];
       } else {
-        results = results.setIn([idx, 'count'], cnt+1);
+        results = results.setIn([idx, "count"], cnt + 1);
       }
 
       return state
@@ -78,8 +80,8 @@ export default handleActions(
       let results = state.getIn(["orderList", "results"]);
       let count = state.getIn(["orderList", "count"]);
       count -= 1;
-      for(let i=0; i<results.size; i++) {
-        if(results.getIn([i,'id']) === menu.menuId) {
+      for (let i = 0; i < results.size; i++) {
+        if (results.getIn([i, "id"]) === menu.menuId) {
           results = results.delete(i);
           break;
         }
@@ -92,9 +94,12 @@ export default handleActions(
     [PLUS_MENU]: (state, { payload: menu }) => {
       let results = state.getIn(["orderList", "results"]);
       let count = state.getIn(["orderList", "count"]);
-      for(let i=0; i<results.size; i++) {
-        if(results.getIn([i,'id']) === menu.menuId) {
-          results = results.setIn([i, 'count'], results.getIn([i,'count'])+1);
+      for (let i = 0; i < results.size; i++) {
+        if (results.getIn([i, "id"]) === menu.menuId) {
+          results = results.setIn(
+            [i, "count"],
+            results.getIn([i, "count"]) + 1
+          );
           break;
         }
       }
@@ -106,14 +111,13 @@ export default handleActions(
     [MINUS_MENU]: (state, { payload: menu }) => {
       let results = state.getIn(["orderList", "results"]);
       let count = state.getIn(["orderList", "count"]);
-      for(let i=0; i<results.size; i++) {
-        if(results.getIn([i,'id']) === menu.menuId) {
-          const cnt = results.getIn([i,'count']);
-          if(cnt === 1) {
+      for (let i = 0; i < results.size; i++) {
+        if (results.getIn([i, "id"]) === menu.menuId) {
+          const cnt = results.getIn([i, "count"]);
+          if (cnt === 1) {
             results = results.delete(i);
-          }
-          else {
-            results = results.setIn([i, 'count'], cnt-1);
+          } else {
+            results = results.setIn([i, "count"], cnt - 1);
           }
           break;
         }
@@ -127,7 +131,7 @@ export default handleActions(
       const data = Map({
         count: 0,
         results: List([]),
-      })
+      });
       return state.set("orderList", fromJS(data));
     },
     ...pender({
@@ -145,7 +149,15 @@ export default handleActions(
 
         return state.set("orderList", fromJS(data));
       },
-    })
+    }),
+    ...pender({
+      ttype: LISTALL_MY,
+      onSuccess: (state, action) => {
+        const data = action.payload.data;
+
+        return state.set("my", fromJS(data));
+      },
+    }),
   },
   initialState
 );
