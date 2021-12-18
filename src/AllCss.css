@@ -72,3 +72,9 @@ input[type="radio"] {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }
+
+.myClass div > a,
+.myClass div > a:hover,
+.myClass div > a:focus {
+  color: black;
+}

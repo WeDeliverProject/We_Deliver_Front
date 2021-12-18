@@ -9,6 +9,7 @@ import {
 } from "../../components";
 
 import edit from "../../img/edit.png";
+import "../../AllCss.css"
 
 const GreyText = styled.p`
   font-size: 15px;
@@ -82,7 +83,7 @@ const OrderList = () => {
             style={{ flexWrap: "nowrap", height: "600px", overflowY: "scroll" }}
             fill="true"
             variant="pills"
-            className="flex-column"
+            className="flex-column myClass"
           >
             {myList.results.map((item, v) => (
               <Nav.Item
