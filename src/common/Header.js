@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useMember } from "../components";
 
 import Logo from "../img/logo.png";
 import medal from "../img/image 12.png";

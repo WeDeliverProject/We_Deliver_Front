@@ -6,7 +6,7 @@ import "../../AllCss.css";
 import Background from "../../img/location_background.jpg";
 import Placeholder from "../../img/placeholder.png";
 import { Link } from "react-router-dom";
-import { getDataFromStorage } from "../../utils/storage";
+import { getDataFromStorage, saveDataToStorage } from "../../utils/storage";
 
 const Wrapper = styled.div`
   position: relative;
@@ -128,6 +128,12 @@ const Location = ({ next, handler }) => {
     }
     
     if (token !== null && isAddress !== "") {
+      let data = getDataFromStorage();
+      data = {
+        ...data,
+        address: isAddress,
+      }
+      saveDataToStorage(data);
       handler();
       window.scrollTo(0, h);
     }

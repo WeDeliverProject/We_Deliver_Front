@@ -45,13 +45,12 @@ const Store = ({ data }) => {
   return (
     <Box>
       <Img
-        src={`http://localhost:3000/${data.img}`}
+        src={`/${data.img}`}
         alt={data.name}
         onClick={clickHandler}
       />
       <Wrapper>
         <p>{data.min_order_amount.toLocaleString()}원 이상 주문</p>
-        <p> {data.star}</p>
       </Wrapper>
       <Wrapper>
         <p>배달비 {data.delivery_fee.toLocaleString()}원~</p>

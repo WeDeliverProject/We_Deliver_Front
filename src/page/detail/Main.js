@@ -53,7 +53,7 @@ const Main = () => {
   const { orderList, listAllOrder, reviewOrder, reviewOrderOne }= useOrder();
   const { reviewList, listAllReview } = useReview();
   const { menuList, listAllMenu } = useMenu();
-
+  
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -76,7 +76,7 @@ const Main = () => {
     <Wrapper>
       <div>
         <Title>
-          <Img src={`http://localhost:3000/${restaurantOne.img}`} />
+          <Img src={`/${restaurantOne.img}`} />
           <div>
             <Name>{restaurantOne.name}</Name>
             <Rating style={{ marginLeft: "0px" }} name="half-rating-read" value={restaurantOne.star === null ? 0.0 : restaurantOne.star} precision={0.05} style={{color : "#FAFF00"}} readOnly />

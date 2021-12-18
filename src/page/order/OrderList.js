@@ -53,7 +53,8 @@ const Button = styled.button`
 `;
 
 const OrderList = () => {
-  let array = [];
+  const { loading, setLoading } = useLoading(true);
+  const { listAllMy, myList } = useOrder();
 
   useEffect(() => {
     const fetch = async () => {
@@ -66,25 +67,7 @@ const OrderList = () => {
       }
     };
     fetch();
-    setArray();
   }, []);
-
-  const { loading, setLoading } = useLoading(true);
-  const { listAllMy, myList } = useOrder();
-  const { getRestaurants } = useRestaurant();
-
-  const setArray = async () => {
-    array = new Array(myList.count);
-    for (let i = 0; i < myList.count; i++) {
-      const response = await getRestaurants(myList.results[i].restaurant_id);
-
-      array[i] = response.data.name;
-    }
-  };
-
-  const getName = (index) => {
-    return array[index];
-  };
 
   return loading ? (
     <CTLoading />
@@ -124,7 +107,7 @@ const OrderList = () => {
           </Nav>
         </Col>
         <Col sm={7}>
-          <Tab.Content>
+          <Tab.Content style={{ marginTop: "20px" }}>
             {myList.results.map((item) => (
               <Tab.Pane eventKey={item._id}>
                 <GreyText>배달이 완료되었어요</GreyText>
