@@ -15,7 +15,9 @@ const Layout1 = () => {
   const [next, setNext] = useState(false);
 
   const nextHandler = () => {
+    const h = window.innerHeight;
     setNext(true);
+    window.scrollTo(0, h);
   };
   return (
     <>
